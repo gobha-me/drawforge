@@ -8,6 +8,9 @@ target_include_directories(${PROJECT_NAME}
   PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE ${PROJECT_NAME}::lib
-)
+if (TARGET ${PROJECT_NAME}::lib)
+  target_link_libraries(${PROJECT_NAME}
+    PRIVATE ${PROJECT_NAME}::lib
+  )
+  target_compile_definitions(${PROJECT_NAME} PRIVATE DRAWFORGE_HAS_LIB=1)
+endif ()
