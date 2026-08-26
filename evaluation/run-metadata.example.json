@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "corpus_id": "drawforge-semantic-svg-v1",
+  "task_id": "create-status-badge",
+  "route": "direct-svg",
+  "trial": 1,
+  "model": {
+    "provider": "example",
+    "id": "example-model",
+    "version": "2026-08-26"
+  },
+  "sampling": {
+    "seed": 1001,
+    "temperature": null
+  },
+  "usage": {
+    "tool_interactions": 1,
+    "input_tokens": null,
+    "output_tokens": null
+  },
+  "events": ["submission_accepted"]
+}

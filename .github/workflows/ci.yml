@@ -206,3 +206,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run version_selftest.cmake
         run: cmake -P cmake/version_selftest.cmake
+
+  evaluation-corpus:
+    name: evaluation corpus
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate corpus and evaluator
+        run: |
+          python3 evaluation/tools/evaluate.py verify-corpus
+          python3 -m unittest discover -s evaluation/tests -p 'test_*.py' -v

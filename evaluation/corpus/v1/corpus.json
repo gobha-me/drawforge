@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "corpus_id": "drawforge-semantic-svg-v1",
+  "trials_per_task": 5,
+  "limits": {
+    "max_attempts": 3,
+    "max_tool_interactions": 12,
+    "max_svg_bytes": 1048576,
+    "max_elements": 4096,
+    "max_diagnostic_bytes": 4096
+  },
+  "tasks": [
+    {
+      "id": "create-status-badge",
+      "family": "creation",
+      "prompt": "prompts/create-status-badge.md",
+      "reference": "references/create-status-badge.svg",
+      "criteria": {
+        "element_count": 4,
+        "root_attributes": {"width": "160", "height": "64", "viewBox": "0 0 160 64"},
+        "elements": [
+          {"id": "badge", "tag": "rect", "attributes": {"x": "0", "y": "0", "width": "160", "height": "64", "rx": "16", "fill": "#172033"}},
+          {"id": "indicator", "tag": "circle", "attributes": {"cx": "32", "cy": "32", "r": "12", "fill": "#35c46a"}},
+          {"id": "check", "tag": "path", "attributes": {"d": "M26 32l4 4 8-9", "fill": "none", "stroke": "#ffffff", "stroke-width": "3"}}
+        ]
+      },
+      "human_review": ["The badge reads clearly at its intended 160 by 64 size.", "The status mark is visually centered and legible."]
+    },
+    {
+      "id": "revise-named-sun",
+      "family": "revision",
+      "prompt": "prompts/revise-named-sun.md",
+      "input": "fixtures/revise-named-sun.svg",
+      "reference": "references/revise-named-sun.svg",
+      "criteria": {
+        "element_count": 4,
+        "elements": [
+          {"id": "sun", "tag": "circle", "attributes": {"cx": "128", "cy": "48", "r": "28", "fill": "#ffb300"}}
+        ],
+        "unchanged": ["sky", "hills"],
+        "only_change_attributes": [{"id": "sun", "attributes": ["r", "fill"]}]
+      },
+      "human_review": ["Only the named sun appears changed.", "The enlarged sun remains balanced within the scene."]
+    },
+    {
+      "id": "recolor-card-theme",
+      "family": "revision",
+      "prompt": "prompts/recolor-card-theme.md",
+      "input": "fixtures/recolor-card-theme.svg",
+      "reference": "references/recolor-card-theme.svg",
+      "criteria": {
+        "element_count": 4,
+        "elements": [
+          {"id": "background", "tag": "rect", "attributes": {"fill": "#111827"}},
+          {"id": "panel", "tag": "rect", "attributes": {"fill": "#1f2937"}},
+          {"id": "accent", "tag": "circle", "attributes": {"fill": "#a78bfa"}}
+        ],
+        "only_change_attributes": [
+          {"id": "background", "attributes": ["fill"]},
+          {"id": "panel", "attributes": ["fill"]},
+          {"id": "accent", "attributes": ["fill"]}
+        ]
+      },
+      "human_review": ["The result has a coherent dark violet theme.", "Geometry and spacing appear unchanged."]
+    },
+    {
+      "id": "align-toolbar-icons",
+      "family": "revision",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "input": "fixtures/align-toolbar-icons.svg",
+      "reference": "references/align-toolbar-icons.svg",
+      "criteria": {
+        "element_count": 5,
+        "elements": [
+          {"id": "icon-a", "tag": "rect", "attributes": {"x": "16", "y": "20"}},
+          {"id": "icon-b", "tag": "rect", "attributes": {"x": "56", "y": "20"}},
+          {"id": "icon-c", "tag": "rect", "attributes": {"x": "96", "y": "20"}}
+        ],
+        "only_change_attributes": [
+          {"id": "icon-a", "attributes": ["x", "y"]},
+          {"id": "icon-b", "attributes": ["x", "y"]},
+          {"id": "icon-c", "attributes": ["x", "y"]}
+        ],
+        "unchanged": ["toolbar"]
+      },
+      "human_review": ["The three icons form an even horizontal row.", "No icon shape or toolbar styling changed."]
+    },
+    {
+      "id": "group-and-move-mascot",
+      "family": "revision",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "input": "fixtures/group-and-move-mascot.svg",
+      "reference": "references/group-and-move-mascot.svg",
+      "criteria": {
+        "element_count": 6,
+        "elements": [
+          {"id": "mascot", "tag": "g", "attributes": {"transform": "translate(24 12)"}}
+        ],
+        "parent": [
+          {"id": "body", "parent": "mascot"},
+          {"id": "eye-left", "parent": "mascot"},
+          {"id": "eye-right", "parent": "mascot"}
+        ],
+        "child_order": {"parent": "mascot", "ids": ["body", "eye-left", "eye-right"]},
+        "unchanged": ["frame", "body", "eye-left", "eye-right"]
+      },
+      "human_review": ["The mascot moved as one intact component.", "Its internal proportions did not change."]
+    },
+    {
+      "id": "animate-dot-entrance",
+      "family": "creation",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "input": "fixtures/animate-dot-entrance.svg",
+      "reference": "references/animate-dot-entrance.svg",
+      "criteria": {
+        "element_count": 4,
+        "elements": [
+          {"id": "dot", "tag": "circle", "attributes": {"cx": "64", "cy": "64", "r": "20", "fill": "#2563eb", "opacity": "0"}},
+          {"id": "dot-entrance", "tag": "animate", "attributes": {"attributeName": "opacity", "from": "0", "to": "1", "dur": "600ms", "fill": "freeze"}}
+        ],
+        "parent": [{"id": "dot-entrance", "parent": "dot"}],
+        "unchanged": ["canvas"],
+        "only_change_attributes": [{"id": "dot", "attributes": []}]
+      },
+      "human_review": ["The dot has a simple, non-looping fade entrance.", "The canvas and dot geometry remain stable."]
+    },
+    {
+      "id": "recover-invalid-edit",
+      "family": "recovery",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "input": "fixtures/recover-invalid-edit.svg",
+      "reference": "references/recover-invalid-edit.svg",
+      "required_events": ["submission_rejected_invalid", "submission_accepted"],
+      "criteria": {
+        "element_count": 3,
+        "elements": [
+          {"id": "signal", "tag": "circle", "attributes": {"cx": "48", "cy": "48", "r": "18", "fill": "#22c55e"}}
+        ],
+        "unchanged": ["frame"],
+        "only_change_attributes": [{"id": "signal", "attributes": ["fill"]}]
+      },
+      "human_review": ["The repaired result fulfills the request.", "Recovery caused no visible collateral edits."]
+    },
+    {
+      "id": "recover-stale-revision",
+      "family": "recovery",
+      "prompt": "prompts/recover-stale-revision.md",
+      "input": "fixtures/recover-stale-revision.svg",
+      "concurrent_input": "fixtures/recover-stale-revision-concurrent.svg",
+      "reference": "references/recover-stale-revision.svg",
+      "required_events": ["submission_rejected_stale", "source_refreshed", "submission_accepted"],
+      "criteria_input": "concurrent_input",
+      "criteria": {
+        "element_count": 4,
+        "elements": [
+          {"id": "status-icon", "tag": "circle", "attributes": {"fill": "#16a34a"}}
+        ],
+        "unchanged": ["background", "concurrent-marker"],
+        "only_change_attributes": [{"id": "status-icon", "attributes": ["fill"]}]
+      },
+      "human_review": ["The requested icon update is present.", "The concurrent corner marker remains intact."]
+    },
+    {
+      "id": "continue-after-compaction",
+      "family": "recovery",
+      "prompt": "prompts/continue-after-compaction.md",
+      "input": "fixtures/continue-after-compaction.svg",
+      "reference": "references/continue-after-compaction.svg",
+      "required_events": ["context_reset", "source_inspected", "submission_accepted"],
+      "criteria": {
+        "element_count": 9,
+        "elements": [
+          {"id": "focal-ring", "tag": "circle", "attributes": {"stroke": "#f97316", "stroke-width": "6"}}
+        ],
+        "unchanged": ["background", "cluster-left", "cluster-right"],
+        "only_change_attributes": [{"id": "focal-ring", "attributes": ["stroke", "stroke-width"]}]
+      },
+      "human_review": ["The focal ring is emphasized after context reset.", "Unrequested clusters remain visually unchanged."]
+    }
+  ]
+}

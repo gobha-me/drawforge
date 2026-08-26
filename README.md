@@ -33,6 +33,10 @@ complexity through capabilities such as:
 The project should be reconsidered if an evaluation corpus shows no meaningful
 reliability, efficiency, safety, or revision-quality advantage over direct SVG.
 
+The versioned corpus, direct-SVG baseline, repeatability controls, and gate
+decision are documented in [evaluation/](evaluation/). The baseline is
+provider-neutral and runs before the semantic document API exists.
+
 ## Architectural boundary
 
 ```text
