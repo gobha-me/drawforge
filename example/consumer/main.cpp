@@ -33,6 +33,12 @@ auto main() -> int {
   const auto info = drawforge::project_info();
   std::printf("%.*s\n", static_cast<int>(info.name.size()), info.name.data());
 
+  const auto document = drawforge::DocumentId::create("consumer-scene");
+  const auto extent = drawforge::CanvasExtent::create(64, 64);
+  if (!document || !extent || extent->rgba8_bytes() != 16'384) {
+    return 1;
+  }
+
   // A second call, through the other half of the public API, so the check is
   // not one symbol wide.
   return drawforge::stage_name(info.stage) == "experimental" ? 0 : 1;

@@ -12,6 +12,7 @@ option(${PROJECT_NAME}_BUILD_LIB "Build the compiled library target" ON)
 
 if (${PROJECT_NAME}_BUILD_LIB)
   add_library(${PROJECT_NAME}_lib STATIC
+    foundation.cpp
     lib.cpp
   )
 
