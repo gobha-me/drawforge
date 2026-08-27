@@ -41,6 +41,9 @@ The renderer and geometry evidence spike and its provisional Phase 1 boundary
 decision are documented in [ADR-0001](docs/decisions/0001-renderer-geometry-boundary.md).
 The invariant-bearing identities, numeric values, and resource ceilings are
 documented in [ADR-0002](docs/decisions/0002-foundation-value-contract.md).
+The accepted minimal scene hierarchy, opacity animation, semantic bounds, and
+bounded-query behavior are documented in
+[ADR-0003](docs/decisions/0003-minimal-scene-query-contract.md).
 
 ## Architectural boundary
 
@@ -65,8 +68,8 @@ API.
 ## Current public API
 
 The public API reports project metadata and provides the validated foundation
-values used by the coming document and transaction contracts. The scene model
-and mutation API do not exist yet.
+values used by the accepted scene/query contract and the coming transaction
+contract. The compiled scene model and mutation API do not exist yet.
 
 ```cpp
 #include <drawforge/drawforge.hpp>
