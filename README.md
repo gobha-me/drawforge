@@ -37,6 +37,9 @@ The versioned corpus, direct-SVG baseline, repeatability controls, and gate
 decision are documented in [evaluation/](evaluation/). The baseline is
 provider-neutral and runs before the semantic document API exists.
 
+The renderer and geometry evidence spike and its provisional Phase 1 boundary
+decision are documented in [ADR-0001](docs/decisions/0001-renderer-geometry-boundary.md).
+
 ## Architectural boundary
 
 ```text

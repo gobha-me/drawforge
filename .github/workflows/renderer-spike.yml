@@ -1,0 +1,64 @@
+name: Renderer spike
+
+on:
+  pull_request:
+    paths:
+      - "spike/renderer/**"
+      - "docs/decisions/0001-renderer-geometry-boundary.md"
+      - ".github/workflows/renderer-spike.yml"
+  push:
+    branches: [ main ]
+    paths:
+      - "spike/renderer/**"
+      - "docs/decisions/0001-renderer-geometry-boundary.md"
+      - ".github/workflows/renderer-spike.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evidence:
+    name: ${{ matrix.backend }} / GCC + Clang
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        backend: [blend2d, plutovg, cairo]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Clang and build prerequisites
+        env:
+          CLANG_VERSION: "20"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpixman-1-dev libpng-dev pkg-config python3-venv zlib1g-dev
+          wget -qO /tmp/llvm.sh https://apt.llvm.org/llvm.sh
+          chmod +x /tmp/llvm.sh
+          sudo /tmp/llvm.sh "$CLANG_VERSION"
+          sudo ln -sf "/usr/bin/clang-$CLANG_VERSION" /usr/local/bin/clang
+          sudo ln -sf "/usr/bin/clang++-$CLANG_VERSION" /usr/local/bin/clang++
+
+      - name: Build and verify pinned candidate
+        run: >-
+          python3 spike/renderer/verify.py
+          --backend "${{ matrix.backend }}"
+          --compiler g++
+          --compiler clang++
+
+      - name: Upload evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: renderer-spike-${{ matrix.backend }}
+          path: |
+            build-spike-results/summary.json
+            build-spike-${{ matrix.backend }}-gcc/runs/0/scene.png
+            build-spike-${{ matrix.backend }}-gcc/runs/0/scene.rgba
+            build-spike-${{ matrix.backend }}-clang/runs/0/scene.png
+            build-spike-${{ matrix.backend }}-clang/runs/0/scene.rgba
+          if-no-files-found: error
