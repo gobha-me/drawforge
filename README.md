@@ -39,6 +39,8 @@ provider-neutral and runs before the semantic document API exists.
 
 The renderer and geometry evidence spike and its provisional Phase 1 boundary
 decision are documented in [ADR-0001](docs/decisions/0001-renderer-geometry-boundary.md).
+The invariant-bearing identities, numeric values, and resource ceilings are
+documented in [ADR-0002](docs/decisions/0002-foundation-value-contract.md).
 
 ## Architectural boundary
 
@@ -60,16 +62,18 @@ provider SDK. An AIForge integration belongs at AIForge's adapter boundary and
 maps its tool, policy, event, and artifact contracts onto the stable DrawForge
 API.
 
-## Current bootstrap API
+## Current public API
 
-The only current public API reports project metadata. It exists to prove the
-compiled-library, executable, test, install, and downstream-consumer paths.
-It is not the first version of the graphics API.
+The public API reports project metadata and provides the validated foundation
+values used by the coming document and transaction contracts. The scene model
+and mutation API do not exist yet.
 
 ```cpp
 #include <drawforge/drawforge.hpp>
 
 const auto info = drawforge::project_info();
+const auto document = drawforge::DocumentId::create("scene");
+const auto extent = drawforge::CanvasExtent::create(640, 480);
 ```
 
 ## Build and test

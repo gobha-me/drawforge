@@ -1,5 +1,7 @@
 #pragma once
 
+#include <drawforge/foundation.hpp>
+
 #include <cstdint>
 #include <string_view>
 
