@@ -1,0 +1,31 @@
+name: Transaction contract
+
+on:
+  pull_request:
+    paths:
+      - "spike/transaction/**"
+      - "docs/decisions/0004-atomic-transaction-contract.md"
+      - ".github/workflows/transaction-contract.yml"
+  push:
+    branches: [ main ]
+    paths:
+      - "spike/transaction/**"
+      - "docs/decisions/0004-atomic-transaction-contract.md"
+      - ".github/workflows/transaction-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evidence:
+    name: deterministic failure matrix
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify transaction contract
+        run: python3 -B spike/transaction/verify.py
