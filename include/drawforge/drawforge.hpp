@@ -1,7 +1,9 @@
 #pragma once
 
+#include <drawforge/cancellation.hpp>
 #include <drawforge/foundation.hpp>
 #include <drawforge/query.hpp>
+#include <drawforge/render.hpp>
 #include <drawforge/scene.hpp>
 #include <drawforge/transaction.hpp>
 

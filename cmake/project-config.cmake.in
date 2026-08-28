@@ -68,6 +68,10 @@ endif ()
 # Use find_dependency, not find_package: it forwards REQUIRED/QUIET and reports
 # a miss as "package X not found because dependency Y was missing".
 
+include(CMakeFindDependencyMacro)
+find_dependency(Threads REQUIRED)
+find_dependency(plutovg 1.3.3 EXACT CONFIG REQUIRED)
+
 include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
 
 check_required_components(@PROJECT_NAME@)

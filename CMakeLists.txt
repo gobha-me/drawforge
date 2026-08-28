@@ -44,10 +44,10 @@ endif ()
 # landing in someone else's `cmake --install`. Building this repo directly is
 # unchanged: all three are ON.
 #
-# The library itself defaults ON in src/lib/CMakeLists.txt — it is the thing
-# worth consuming.
-#
-# Declared here, above the dependency list, because that list is gated on them.
+# The library itself defaults ON — it is the thing worth consuming. All four
+# options are declared here, above the dependency list, because that list is
+# gated on them.
+option(${PROJECT_NAME}_BUILD_LIB "Build the compiled library target" ON)
 option(${PROJECT_NAME}_BUILD_BIN "Build the executable in src/bin"    ${PROJECT_IS_TOP_LEVEL})
 option(${PROJECT_NAME}_TESTS     "Build and register the test suite"  ${PROJECT_IS_TOP_LEVEL})
 option(${PROJECT_NAME}_INSTALL   "Generate install / package-config rules" ${PROJECT_IS_TOP_LEVEL})
@@ -57,6 +57,7 @@ option(${PROJECT_NAME}_INSTALL   "Generate install / package-config rules" ${PRO
 # project: drop a name to stop fetching that dep.
 set(${PROJECT_NAME}_DEPS
   catch2    # Catch2 v3 — test framework (test/)
+  plutovg   # PlutoVG 1.3.3 — private deterministic Phase 1 renderer
 )
 
 # Component gating: a dependency that exists only to serve a target we are not
@@ -68,6 +69,9 @@ set(${PROJECT_NAME}_DEPS
 # so a project that prunes the list can leave these alone.
 if (NOT ${PROJECT_NAME}_TESTS)
   list(REMOVE_ITEM ${PROJECT_NAME}_DEPS catch2)
+endif ()
+if (NOT ${PROJECT_NAME}_BUILD_LIB)
+  list(REMOVE_ITEM ${PROJECT_NAME}_DEPS plutovg)
 endif ()
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/dependencies.cmake)

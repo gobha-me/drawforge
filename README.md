@@ -13,9 +13,10 @@ evaluation, and rendering. A small command-line surface will expose the same
 operations for scripts. A future TermForge application will act as a human
 workbench and visual debugger rather than as the library's reason to exist.
 
-DrawForge is at the project-foundation stage. The document API, command schema,
-renderer, and scripting surface do not exist yet and must not be inferred from
-the bootstrap API. See [the design](DESIGN.md) and the
+DrawForge now has its first immutable scene, query, transaction, and
+deterministic preview APIs. The headless command dispatcher and scripting
+surface remain roadmap work and must not be inferred from the provisional C++
+contract. See [the design](DESIGN.md) and the
 [GitHub roadmap](https://github.com/gobha-me/drawforge/issues).
 
 ## Experiment
@@ -53,6 +54,9 @@ provider-neutral result encoding are documented in
 [ADR-0005](docs/decisions/0005-versioned-json-encoding.md), with generated
 machine artifacts under [schema/experimental/v1/](schema/experimental/v1/) and
 executable conformance evidence under [spike/encoding/](spike/encoding/).
+The fixed Phase 1 RGBA8 and PNG preview contract, renderer-version metadata,
+cancellation boundaries, and semantic dirty-bounds relationship are documented
+in [ADR-0006](docs/decisions/0006-deterministic-preview-rendering.md).
 
 ## Architectural boundary
 
@@ -102,6 +106,14 @@ if (document && extent) {
               drawforge::CreateLayer{*layer, 0, true}}}});
       const auto summary = drawforge::inspect(
           dispatcher->snapshot(), drawforge::SummaryQuery{});
+      const auto config = drawforge::RenderConfig::create(0, 64 * 1024 * 1024);
+      if (config) {
+        const auto rgba =
+            drawforge::render_rgba(dispatcher->snapshot(), *config);
+        if (rgba) {
+          const auto png = drawforge::encode_png(*rgba);
+        }
+      }
     }
   }
 }
@@ -154,9 +166,10 @@ fetched, and installed consumption.
 ## Dependency policy
 
 Dependencies use `find_package` first and a pinned CMake `FetchContent`
-fallback. The bootstrap library has no runtime dependency; Catch2 is used only
-for tests. Rendering, geometry, persistence, and script-runtime dependencies
-will be selected only through roadmap decisions backed by prototypes.
+fallback. The compiled library privately links the exact PlutoVG 1.3.3 Phase 1
+renderer selected by ADR-0001; no PlutoVG type crosses the public API. Catch2
+is used only for tests. Persistence and script-runtime dependencies remain
+deferred to roadmap decisions backed by evidence.
 
 ## Continuous integration
 
