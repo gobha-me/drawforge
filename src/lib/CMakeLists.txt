@@ -8,13 +8,12 @@
 # test/CMakeLists.txt). Pair OFF with -D<PROJECT>_TESTS=OFF, or keep only tests
 # that do not call into this library.
 
-option(${PROJECT_NAME}_BUILD_LIB "Build the compiled library target" ON)
-
 if (${PROJECT_NAME}_BUILD_LIB)
   add_library(${PROJECT_NAME}_lib STATIC
     foundation.cpp
     lib.cpp
     query.cpp
+    renderer.cpp
     scene.cpp
     transaction.cpp
   )
@@ -39,6 +38,11 @@ if (${PROJECT_NAME}_BUILD_LIB)
   # CMAKE_CXX_STANDARD for *our* builds, but a consumer uses their own toolchain
   # — without this, they compile DrawForge headers at whatever their default is.
   target_compile_features(${PROJECT_NAME}_lib PUBLIC cxx_std_23)
+
+  # PlutoVG is an implementation detail, but this is a static library: CMake
+  # retains the link dependency as LINK_ONLY so installed consumers can resolve
+  # the renderer implementation without exposing PlutoVG headers or types.
+  target_link_libraries(${PROJECT_NAME}_lib PRIVATE plutovg::plutovg)
 
   add_library(${PROJECT_NAME}::lib ALIAS ${PROJECT_NAME}_lib)
 endif ()

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <drawforge/cancellation.hpp>
 #include <drawforge/query.hpp>
 
 #include <array>
@@ -407,25 +408,6 @@ struct TransactionResult {
   TransactionDisposition disposition{};
   TransactionReceipt receipt;
   auto operator==(const TransactionResult &) const -> bool = default;
-};
-
-class CancellationToken {
-public:
-  using Poll = bool (*)(const void *) noexcept;
-
-  constexpr CancellationToken() noexcept = default;
-  // The context is non-owning and must outlive apply(). The callback is polled
-  // only at the deterministic boundaries specified by ADR-0004.
-  constexpr CancellationToken(const void *context, Poll poll) noexcept
-      : m_context{context}, m_poll{poll} {}
-
-  [[nodiscard]] auto stop_requested() const noexcept -> bool {
-    return m_poll != nullptr && m_poll(m_context);
-  }
-
-private:
-  const void *m_context{};
-  Poll m_poll{};
 };
 
 class TransactionDispatcher {

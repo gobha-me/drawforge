@@ -78,6 +78,27 @@ auto main() -> int {
     return 1;
   }
 
+  // Rendering is compiled through a private PlutoVG adapter. Exercising both
+  // stages proves that add_subdirectory, FetchContent, and installed packages
+  // propagate the static link dependency without exposing its types.
+  const auto render_config =
+      drawforge::RenderConfig::create(0, extent->rgba8_bytes());
+  if (!render_config) {
+    return 1;
+  }
+  const auto rgba =
+      drawforge::render_rgba(dispatcher->snapshot(), *render_config);
+  if (!rgba || rgba->pixels().size() != extent->rgba8_bytes() ||
+      rgba->renderer() != drawforge::renderer_info()) {
+    return 1;
+  }
+  const auto png = drawforge::encode_png(*rgba);
+  if (!png || png->bytes().size() < 8 || png->bytes()[0] != 0x89U ||
+      png->bytes()[1] != 0x50U || png->bytes()[2] != 0x4eU ||
+      png->bytes()[3] != 0x47U) {
+    return 1;
+  }
+
   // A second call, through the other half of the public API, so the check is
   // not one symbol wide.
   return drawforge::stage_name(info.stage) == "experimental" ? 0 : 1;
