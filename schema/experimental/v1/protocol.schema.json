@@ -1,0 +1,2252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DrawForge provisional JSON protocol v1",
+  "description": "Provider-neutral Phase 0 interchange contract; compatibility is not promised before the Phase 1 gate.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/request_frame"
+    },
+    {
+      "$ref": "#/$defs/success_frame"
+    },
+    {
+      "$ref": "#/$defs/error_frame"
+    }
+  ],
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9._-]*$",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "bounded_text": {
+      "type": "string",
+      "maxLength": 65536
+    },
+    "uint64": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 18446744073709551615
+    },
+    "coordinate": {
+      "type": "number",
+      "minimum": -1048576.0,
+      "maximum": 1048576.0
+    },
+    "nonnegative_coordinate": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1048576.0
+    },
+    "positive_coordinate": {
+      "type": "number",
+      "exclusiveMinimum": 0,
+      "maximum": 1048576.0
+    },
+    "opacity": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "color": {
+      "type": "string",
+      "pattern": "^#[0-9a-f]{8}$"
+    },
+    "point": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "y": {
+          "$ref": "#/$defs/coordinate"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "transform": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "b": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "c": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "d": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "e": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "f": {
+          "$ref": "#/$defs/coordinate"
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "canvas_extent": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        }
+      },
+      "required": [
+        "width",
+        "height"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "rect": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "y": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "width": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        },
+        "height": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "stroke": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/$defs/color"
+        },
+        "width": {
+          "$ref": "#/$defs/positive_coordinate"
+        }
+      },
+      "required": [
+        "color",
+        "width"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "style": {
+      "type": "object",
+      "properties": {
+        "fill": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "stroke": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stroke"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "fill",
+        "stroke"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "rectangle_geometry": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "rectangle"
+        },
+        "x": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "y": {
+          "$ref": "#/$defs/coordinate"
+        },
+        "width": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        },
+        "height": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        },
+        "radius_x": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        },
+        "radius_y": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        }
+      },
+      "required": [
+        "kind",
+        "x",
+        "y",
+        "width",
+        "height",
+        "radius_x",
+        "radius_y"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "ellipse_geometry": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "ellipse"
+        },
+        "center": {
+          "$ref": "#/$defs/point"
+        },
+        "radius_x": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        },
+        "radius_y": {
+          "$ref": "#/$defs/nonnegative_coordinate"
+        }
+      },
+      "required": [
+        "kind",
+        "center",
+        "radius_x",
+        "radius_y"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "move_to": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "move_to"
+        },
+        "point": {
+          "$ref": "#/$defs/point"
+        }
+      },
+      "required": [
+        "kind",
+        "point"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "line_to": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "line_to"
+        },
+        "point": {
+          "$ref": "#/$defs/point"
+        }
+      },
+      "required": [
+        "kind",
+        "point"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "close_path": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "close"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "path_command": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/move_to"
+        },
+        {
+          "$ref": "#/$defs/line_to"
+        },
+        {
+          "$ref": "#/$defs/close_path"
+        }
+      ]
+    },
+    "path_geometry": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "path"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/path_command"
+          },
+          "minItems": 1,
+          "maxItems": 65536
+        }
+      },
+      "required": [
+        "kind",
+        "commands"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "geometry": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/rectangle_geometry"
+        },
+        {
+          "$ref": "#/$defs/ellipse_geometry"
+        },
+        {
+          "$ref": "#/$defs/path_geometry"
+        }
+      ]
+    },
+    "parent_ref": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "layer"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "group"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        }
+      ]
+    },
+    "node_ref": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "layer"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "object"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        }
+      ]
+    },
+    "structure_root": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "document"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "layer"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "group"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        }
+      ]
+    },
+    "identity_ref": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "document"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "layer"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "object"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "track"
+            },
+            "id": {
+              "$ref": "#/$defs/identifier"
+            }
+          },
+          "required": [
+            "kind",
+            "id"
+          ],
+          "additionalProperties": false,
+          "maxProperties": 64
+        }
+      ]
+    },
+    "resource_limits": {
+      "type": "object",
+      "properties": {
+        "max_identifier_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        },
+        "max_text_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65536
+        },
+        "max_numeric_magnitude": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1048576.0
+        },
+        "max_canvas_dimension": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16384
+        },
+        "max_canvas_pixels": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 67108864
+        },
+        "max_scene_nodes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 65536
+        },
+        "max_transaction_operations": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4096
+        },
+        "max_output_bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 268435456
+        },
+        "max_nesting_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 128
+        }
+      },
+      "required": [
+        "max_identifier_bytes",
+        "max_text_bytes",
+        "max_numeric_magnitude",
+        "max_canvas_dimension",
+        "max_canvas_pixels",
+        "max_scene_nodes",
+        "max_transaction_operations",
+        "max_output_bytes",
+        "max_nesting_depth"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_layer": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_layer"
+        },
+        "layer_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "op",
+        "layer_id",
+        "index",
+        "visible"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_group": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_group"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "parent",
+        "index",
+        "visible",
+        "transform"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_rectangle": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_rectangle"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "style": {
+          "$ref": "#/$defs/style"
+        },
+        "opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/rectangle_geometry"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "parent",
+        "index",
+        "visible",
+        "transform",
+        "style",
+        "opacity",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_ellipse": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_ellipse"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "style": {
+          "$ref": "#/$defs/style"
+        },
+        "opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/ellipse_geometry"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "parent",
+        "index",
+        "visible",
+        "transform",
+        "style",
+        "opacity",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_path": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_path"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "style": {
+          "$ref": "#/$defs/style"
+        },
+        "opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "geometry": {
+          "$ref": "#/$defs/path_geometry"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "parent",
+        "index",
+        "visible",
+        "transform",
+        "style",
+        "opacity",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "create_opacity_track": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "create_opacity_track"
+        },
+        "track_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "target_object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "start_time_us": {
+          "$ref": "#/$defs/uint64"
+        },
+        "duration_us": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "from_opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "to_opacity": {
+          "$ref": "#/$defs/opacity"
+        }
+      },
+      "required": [
+        "op",
+        "track_id",
+        "target_object_id",
+        "start_time_us",
+        "duration_us",
+        "from_opacity",
+        "to_opacity"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_canvas_background": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_canvas_background"
+        },
+        "background": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "op",
+        "background"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_visibility": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_visibility"
+        },
+        "target": {
+          "$ref": "#/$defs/node_ref"
+        },
+        "visible": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "op",
+        "target",
+        "visible"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_transform": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_transform"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "transform"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_geometry": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_geometry"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "geometry"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_style": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_style"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "style": {
+          "$ref": "#/$defs/style"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "style"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_opacity": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_opacity"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "opacity": {
+          "$ref": "#/$defs/opacity"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "opacity"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "set_opacity_track": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "set_opacity_track"
+        },
+        "track_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "target_object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "start_time_us": {
+          "$ref": "#/$defs/uint64"
+        },
+        "duration_us": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "from_opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "to_opacity": {
+          "$ref": "#/$defs/opacity"
+        }
+      },
+      "required": [
+        "op",
+        "track_id",
+        "target_object_id",
+        "start_time_us",
+        "duration_us",
+        "from_opacity",
+        "to_opacity"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "reparent_object": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "reparent_object"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "parent",
+        "index"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "reorder_object": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "const": "reorder_object"
+        },
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "index": {
+          "$ref": "#/$defs/uint64"
+        }
+      },
+      "required": [
+        "op",
+        "object_id",
+        "index"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "operation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/create_layer"
+        },
+        {
+          "$ref": "#/$defs/create_group"
+        },
+        {
+          "$ref": "#/$defs/create_rectangle"
+        },
+        {
+          "$ref": "#/$defs/create_ellipse"
+        },
+        {
+          "$ref": "#/$defs/create_path"
+        },
+        {
+          "$ref": "#/$defs/create_opacity_track"
+        },
+        {
+          "$ref": "#/$defs/set_canvas_background"
+        },
+        {
+          "$ref": "#/$defs/set_visibility"
+        },
+        {
+          "$ref": "#/$defs/set_transform"
+        },
+        {
+          "$ref": "#/$defs/set_geometry"
+        },
+        {
+          "$ref": "#/$defs/set_style"
+        },
+        {
+          "$ref": "#/$defs/set_opacity"
+        },
+        {
+          "$ref": "#/$defs/set_opacity_track"
+        },
+        {
+          "$ref": "#/$defs/reparent_object"
+        },
+        {
+          "$ref": "#/$defs/reorder_object"
+        }
+      ]
+    },
+    "operation_batch": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "operations"
+        },
+        "operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/operation"
+          },
+          "minItems": 1,
+          "maxItems": 4096
+        }
+      },
+      "required": [
+        "kind",
+        "operations"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "undo_body": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "undo"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "redo_body": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "redo"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "transaction_body": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/operation_batch"
+        },
+        {
+          "$ref": "#/$defs/undo_body"
+        },
+        {
+          "$ref": "#/$defs/redo_body"
+        }
+      ]
+    },
+    "transaction": {
+      "type": "object",
+      "properties": {
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "expected_revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "transaction_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "body": {
+          "$ref": "#/$defs/transaction_body"
+        }
+      },
+      "required": [
+        "document_id",
+        "expected_revision",
+        "transaction_id",
+        "body"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "summary_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "document_summary"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "structure_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "structure"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "root": {
+          "$ref": "#/$defs/structure_root"
+        },
+        "max_depth": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 129
+        },
+        "max_nodes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65536
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "root",
+        "max_depth",
+        "max_nodes"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "selected_objects_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "selected_objects"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identifier"
+          },
+          "minItems": 1,
+          "maxItems": 65536,
+          "uniqueItems": true
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "kind",
+              "parent_order",
+              "visibility",
+              "transform",
+              "geometry",
+              "style",
+              "opacity",
+              "opacity_track"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "object_ids",
+        "fields"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "bounds_query": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "bounds"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node_ref"
+          },
+          "minItems": 1,
+          "maxItems": 65536,
+          "uniqueItems": true
+        },
+        "projections": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "local_geometry",
+              "document_geometry",
+              "document_painted"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true
+        },
+        "time_us": {
+          "$ref": "#/$defs/uint64"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "targets",
+        "projections",
+        "time_us"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "query": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/summary_query"
+        },
+        {
+          "$ref": "#/$defs/structure_query"
+        },
+        {
+          "$ref": "#/$defs/selected_objects_query"
+        },
+        {
+          "$ref": "#/$defs/bounds_query"
+        }
+      ]
+    },
+    "create_request": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "create_document"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "canvas": {
+          "$ref": "#/$defs/canvas_extent"
+        },
+        "background": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limits": {
+          "$ref": "#/$defs/resource_limits"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "canvas",
+        "background"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "inspect_request": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "inspect"
+        },
+        "query": {
+          "$ref": "#/$defs/query"
+        }
+      },
+      "required": [
+        "kind",
+        "query"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "apply_request": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "apply"
+        },
+        "mode": {
+          "enum": [
+            "dry_run",
+            "commit"
+          ]
+        },
+        "transaction": {
+          "$ref": "#/$defs/transaction"
+        }
+      },
+      "required": [
+        "kind",
+        "mode",
+        "transaction"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "render_request": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "render"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "expected_revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "time_us": {
+          "$ref": "#/$defs/uint64"
+        },
+        "format": {
+          "enum": [
+            "rgba8",
+            "png"
+          ]
+        },
+        "artifact_id": {
+          "$ref": "#/$defs/identifier"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "expected_revision",
+        "time_us",
+        "format",
+        "artifact_id"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "request": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/create_request"
+        },
+        {
+          "$ref": "#/$defs/inspect_request"
+        },
+        {
+          "$ref": "#/$defs/apply_request"
+        },
+        {
+          "$ref": "#/$defs/render_request"
+        }
+      ]
+    },
+    "field_path": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 18446744073709551615
+          }
+        ]
+      },
+      "minItems": 0,
+      "maxItems": 32
+    },
+    "warning": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            "no_effect"
+          ]
+        },
+        "operation_index": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/uint64"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "field_path": {
+          "$ref": "#/$defs/field_path"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "code",
+        "operation_index",
+        "field_path",
+        "message"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "receipt": {
+      "type": "object",
+      "properties": {
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "transaction_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "base_revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "result_revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "created": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identity_ref"
+          },
+          "minItems": 0,
+          "maxItems": 65536,
+          "uniqueItems": true
+        },
+        "changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/identity_ref"
+          },
+          "minItems": 0,
+          "maxItems": 65536,
+          "uniqueItems": true
+        },
+        "dirty_bounds": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/rect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/warning"
+          },
+          "minItems": 0,
+          "maxItems": 4096
+        }
+      },
+      "required": [
+        "document_id",
+        "transaction_id",
+        "base_revision",
+        "result_revision",
+        "created",
+        "changed",
+        "dirty_bounds",
+        "warnings"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "document_summary": {
+      "type": "object",
+      "properties": {
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "canvas": {
+          "$ref": "#/$defs/canvas_extent"
+        },
+        "background": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/color"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limits": {
+          "$ref": "#/$defs/resource_limits"
+        },
+        "layer_count": {
+          "$ref": "#/$defs/uint64"
+        },
+        "object_count": {
+          "$ref": "#/$defs/uint64"
+        },
+        "track_count": {
+          "$ref": "#/$defs/uint64"
+        }
+      },
+      "required": [
+        "document_id",
+        "revision",
+        "canvas",
+        "background",
+        "limits",
+        "layer_count",
+        "object_count",
+        "track_count"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "structure_node": {
+      "type": "object",
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/node_ref"
+        },
+        "node_kind": {
+          "enum": [
+            "layer",
+            "group",
+            "rectangle",
+            "ellipse",
+            "path"
+          ]
+        },
+        "parent": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/parent_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sibling_index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "child_count": {
+          "$ref": "#/$defs/uint64"
+        }
+      },
+      "required": [
+        "identity",
+        "node_kind",
+        "parent",
+        "sibling_index",
+        "visible",
+        "child_count"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "opacity_track_metadata": {
+      "type": "object",
+      "properties": {
+        "track_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "start_time_us": {
+          "$ref": "#/$defs/uint64"
+        },
+        "duration_us": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 18446744073709551615
+        },
+        "from_opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "to_opacity": {
+          "$ref": "#/$defs/opacity"
+        }
+      },
+      "required": [
+        "track_id",
+        "start_time_us",
+        "duration_us",
+        "from_opacity",
+        "to_opacity"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "selected_fields": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "group",
+            "rectangle",
+            "ellipse",
+            "path"
+          ]
+        },
+        "parent": {
+          "$ref": "#/$defs/parent_ref"
+        },
+        "sibling_index": {
+          "$ref": "#/$defs/uint64"
+        },
+        "visible": {
+          "type": "boolean"
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "geometry": {
+          "$ref": "#/$defs/geometry"
+        },
+        "style": {
+          "$ref": "#/$defs/style"
+        },
+        "opacity": {
+          "$ref": "#/$defs/opacity"
+        },
+        "opacity_track": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/opacity_track_metadata"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "selected_object": {
+      "type": "object",
+      "properties": {
+        "object_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "fields": {
+          "$ref": "#/$defs/selected_fields"
+        }
+      },
+      "required": [
+        "object_id",
+        "fields"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "projected_bounds": {
+      "type": "object",
+      "properties": {
+        "projection": {
+          "enum": [
+            "local_geometry",
+            "document_geometry",
+            "document_painted"
+          ]
+        },
+        "bounds": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/rect"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "projection",
+        "bounds"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "bounds_item": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/node_ref"
+        },
+        "projections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/projected_bounds"
+          },
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "target",
+        "projections"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "summary_query_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "document_summary"
+        },
+        "summary": {
+          "$ref": "#/$defs/document_summary"
+        }
+      },
+      "required": [
+        "kind",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "structure_query_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "structure"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/structure_node"
+          },
+          "minItems": 0,
+          "maxItems": 65536
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "revision",
+        "nodes"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "selected_objects_query_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "selected_objects"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/selected_object"
+          },
+          "minItems": 0,
+          "maxItems": 65536
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "revision",
+        "objects"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "bounds_query_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "bounds"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/bounds_item"
+          },
+          "minItems": 0,
+          "maxItems": 65536
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "revision",
+        "items"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "query_result": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/summary_query_result"
+        },
+        {
+          "$ref": "#/$defs/structure_query_result"
+        },
+        {
+          "$ref": "#/$defs/selected_objects_query_result"
+        },
+        {
+          "$ref": "#/$defs/bounds_query_result"
+        }
+      ]
+    },
+    "document_created_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "document_created"
+        },
+        "summary": {
+          "$ref": "#/$defs/document_summary"
+        }
+      },
+      "required": [
+        "kind",
+        "summary"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "inspect_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "inspect"
+        },
+        "query_result": {
+          "$ref": "#/$defs/query_result"
+        }
+      },
+      "required": [
+        "kind",
+        "query_result"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "transaction_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "transaction"
+        },
+        "disposition": {
+          "enum": [
+            "dry_run",
+            "committed",
+            "replayed"
+          ]
+        },
+        "receipt": {
+          "$ref": "#/$defs/receipt"
+        }
+      },
+      "required": [
+        "kind",
+        "disposition",
+        "receipt"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "render_result": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "render"
+        },
+        "document_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "revision": {
+          "$ref": "#/$defs/uint64"
+        },
+        "time_us": {
+          "$ref": "#/$defs/uint64"
+        },
+        "format": {
+          "enum": [
+            "rgba8",
+            "png"
+          ]
+        },
+        "artifact_id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16384
+        },
+        "byte_length": {
+          "$ref": "#/$defs/uint64"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "revision",
+        "time_us",
+        "format",
+        "artifact_id",
+        "width",
+        "height",
+        "byte_length",
+        "sha256"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "result": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/document_created_result"
+        },
+        {
+          "$ref": "#/$defs/inspect_result"
+        },
+        {
+          "$ref": "#/$defs/transaction_result"
+        },
+        {
+          "$ref": "#/$defs/render_result"
+        }
+      ]
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "enum": [
+            "encoding",
+            "domain"
+          ]
+        },
+        "code": {
+          "enum": [
+            "invalid_utf8",
+            "invalid_json",
+            "duplicate_key",
+            "unsupported_version",
+            "unknown_field",
+            "missing_field",
+            "invalid_type",
+            "invalid_value",
+            "resource_limit",
+            "nesting_limit",
+            "empty_value",
+            "invalid_identifier",
+            "embedded_nul",
+            "non_finite_number",
+            "invalid_extent",
+            "invalid_limit",
+            "wrong_document",
+            "transaction_id_conflict",
+            "stale_revision",
+            "empty_transaction",
+            "nothing_to_undo",
+            "nothing_to_redo",
+            "cancelled",
+            "revision_overflow",
+            "allocation_failure",
+            "missing_identity",
+            "duplicate_identity",
+            "invalid_parent",
+            "parent_cycle",
+            "invalid_geometry",
+            "unsupported_node_kind",
+            "unsupported_property",
+            "number_out_of_range",
+            "arithmetic_overflow"
+          ]
+        },
+        "retry_advice": {
+          "enum": [
+            "same_request",
+            "refresh_then_retry",
+            "change_request",
+            "not_retryable"
+          ]
+        },
+        "operation_index": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/uint64"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "field_path": {
+          "$ref": "#/$defs/field_path"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "supported_versions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "source",
+        "code",
+        "retry_advice",
+        "operation_index",
+        "field_path",
+        "message"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "request_frame": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": "drawforge.experimental/v1"
+        },
+        "request": {
+          "$ref": "#/$defs/request"
+        }
+      },
+      "required": [
+        "protocol",
+        "request"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "success_frame": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": "drawforge.experimental/v1"
+        },
+        "status": {
+          "const": "ok"
+        },
+        "result": {
+          "$ref": "#/$defs/result"
+        }
+      },
+      "required": [
+        "protocol",
+        "status",
+        "result"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    },
+    "error_frame": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "const": "drawforge.experimental/v1"
+        },
+        "status": {
+          "const": "error"
+        },
+        "error": {
+          "$ref": "#/$defs/error"
+        }
+      },
+      "required": [
+        "protocol",
+        "status",
+        "error"
+      ],
+      "additionalProperties": false,
+      "maxProperties": 64
+    }
+  }
+}
