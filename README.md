@@ -77,10 +77,10 @@ API.
 ## Current public API
 
 The public API reports project metadata, provides invariant-bearing scene
-values, and exposes immutable documents through bounded typed queries. Scene
-construction beyond an empty document remains private until the atomic
-transaction dispatcher is implemented, so consumers cannot bypass the future
-exclusive mutation path.
+values, exposes immutable documents through bounded typed queries, and routes
+all changes through one atomic, retry-safe transaction dispatcher. Dispatcher
+snapshots remain immutable values, so queries never observe partially staged
+state and consumers cannot bypass revision, replay, or history semantics.
 
 ```cpp
 #include <drawforge/drawforge.hpp>
@@ -92,7 +92,17 @@ const auto extent = drawforge::CanvasExtent::create(640, 480);
 if (document && extent) {
   const auto scene = drawforge::Document::create(*document, *extent);
   if (scene) {
-    const auto summary = drawforge::inspect(*scene, drawforge::SummaryQuery{});
+    auto dispatcher = drawforge::TransactionDispatcher::create(*scene);
+    const auto layer = drawforge::LayerId::create("artwork");
+    const auto transaction = drawforge::TransactionId::create("create-v1");
+    if (dispatcher && layer && transaction) {
+      const auto applied = dispatcher->apply(drawforge::Transaction{
+          *document, drawforge::Revision{}, *transaction,
+          drawforge::OperationBatch{{
+              drawforge::CreateLayer{*layer, 0, true}}}});
+      const auto summary = drawforge::inspect(
+          dispatcher->snapshot(), drawforge::SummaryQuery{});
+    }
   }
 }
 ```

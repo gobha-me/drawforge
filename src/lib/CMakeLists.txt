@@ -16,6 +16,7 @@ if (${PROJECT_NAME}_BUILD_LIB)
     lib.cpp
     query.cpp
     scene.cpp
+    transaction.cpp
   )
 
   # Compiled libs get the project's include dir PUBLIC so consumers (bin,
