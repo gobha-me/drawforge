@@ -1,6 +1,8 @@
 #pragma once
 
 #include <drawforge/foundation.hpp>
+#include <drawforge/query.hpp>
+#include <drawforge/scene.hpp>
 
 #include <cstdint>
 #include <string_view>

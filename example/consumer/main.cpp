@@ -39,6 +39,20 @@ auto main() -> int {
     return 1;
   }
 
+  // The installed package must carry the compiled immutable scene/query API,
+  // not merely its foundation headers. This crosses both new translation
+  // units and verifies that query results own their document identity.
+  const auto scene = drawforge::Document::create(*document, *extent);
+  if (!scene) {
+    return 1;
+  }
+  const auto summary = drawforge::inspect(*scene, drawforge::SummaryQuery{});
+  if (!summary || summary->document_id != *document ||
+      summary->revision != drawforge::Revision{} || summary->layer_count != 0 ||
+      summary->object_count != 0 || summary->track_count != 0) {
+    return 1;
+  }
+
   // A second call, through the other half of the public API, so the check is
   // not one symbol wide.
   return drawforge::stage_name(info.stage) == "experimental" ? 0 : 1;

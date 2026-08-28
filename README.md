@@ -76,9 +76,11 @@ API.
 
 ## Current public API
 
-The public API reports project metadata and provides the validated foundation
-values used by the accepted scene/query and transaction contracts. The
-compiled scene model and mutation API do not exist yet.
+The public API reports project metadata, provides invariant-bearing scene
+values, and exposes immutable documents through bounded typed queries. Scene
+construction beyond an empty document remains private until the atomic
+transaction dispatcher is implemented, so consumers cannot bypass the future
+exclusive mutation path.
 
 ```cpp
 #include <drawforge/drawforge.hpp>
@@ -86,6 +88,13 @@ compiled scene model and mutation API do not exist yet.
 const auto info = drawforge::project_info();
 const auto document = drawforge::DocumentId::create("scene");
 const auto extent = drawforge::CanvasExtent::create(640, 480);
+
+if (document && extent) {
+  const auto scene = drawforge::Document::create(*document, *extent);
+  if (scene) {
+    const auto summary = drawforge::inspect(*scene, drawforge::SummaryQuery{});
+  }
+}
 ```
 
 ## Build and test
