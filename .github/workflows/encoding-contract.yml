@@ -1,0 +1,35 @@
+name: Encoding contract
+
+on:
+  pull_request:
+    paths:
+      - "spike/encoding/**"
+      - "schema/experimental/v1/**"
+      - "docs/decisions/0005-versioned-json-encoding.md"
+      - ".github/workflows/encoding-contract.yml"
+  push:
+    branches: [ main ]
+    paths:
+      - "spike/encoding/**"
+      - "schema/experimental/v1/**"
+      - "docs/decisions/0005-versioned-json-encoding.md"
+      - ".github/workflows/encoding-contract.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  evidence:
+    name: strict round-trip and failure matrix
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Check generated protocol artifacts
+        run: python3 -B spike/encoding/contract.py --check
+      - name: Verify encoding contract
+        run: python3 -B spike/encoding/verify.py

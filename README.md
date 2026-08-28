@@ -48,6 +48,11 @@ The atomic transaction, replay, receipt, structured-error, cancellation, and
 undo/redo contract is documented in
 [ADR-0004](docs/decisions/0004-atomic-transaction-contract.md), with an
 executable reference model under [spike/transaction/](spike/transaction/).
+The strict provisional JSONL framing, versioned query/transaction schema, and
+provider-neutral result encoding are documented in
+[ADR-0005](docs/decisions/0005-versioned-json-encoding.md), with generated
+machine artifacts under [schema/experimental/v1/](schema/experimental/v1/) and
+executable conformance evidence under [spike/encoding/](spike/encoding/).
 
 ## Architectural boundary
 
