@@ -14,6 +14,8 @@ if (${PROJECT_NAME}_BUILD_LIB)
   add_library(${PROJECT_NAME}_lib STATIC
     foundation.cpp
     lib.cpp
+    query.cpp
+    scene.cpp
   )
 
   # Compiled libs get the project's include dir PUBLIC so consumers (bin,
