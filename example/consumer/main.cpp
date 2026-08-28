@@ -53,6 +53,31 @@ auto main() -> int {
     return 1;
   }
 
+  // The public mutation boundary must also survive all three acquisition
+  // modes. A dispatcher owns history/replay state while snapshots remain
+  // immutable values that can be inspected independently.
+  auto dispatcher = drawforge::TransactionDispatcher::create(*scene);
+  const auto layer = drawforge::LayerId::create("consumer-layer");
+  const auto transaction_id =
+      drawforge::TransactionId::create("consumer-create-v1");
+  if (!dispatcher || !layer || !transaction_id) {
+    return 1;
+  }
+  const auto applied = dispatcher->apply(drawforge::Transaction{
+      *document, drawforge::Revision{}, *transaction_id,
+      drawforge::OperationBatch{{drawforge::CreateLayer{*layer, 0, true}}}});
+  if (!applied ||
+      applied->disposition != drawforge::TransactionDisposition::committed ||
+      applied->receipt.created().size() != 1) {
+    return 1;
+  }
+  const auto revised =
+      drawforge::inspect(dispatcher->snapshot(), drawforge::SummaryQuery{});
+  if (!revised || revised->revision != drawforge::Revision{1} ||
+      revised->layer_count != 1) {
+    return 1;
+  }
+
   // A second call, through the other half of the public API, so the check is
   // not one symbol wide.
   return drawforge::stage_name(info.stage) == "experimental" ? 0 : 1;
