@@ -26,7 +26,7 @@ from contract import (
 
 
 REPOSITORY = Path(__file__).resolve().parents[2]
-EXPECTED_SUMMARY_SHA256 = "b093b65c67308546f2f46ed0e6b9734e1159fe32035a3979a10f7e16cedcb820"
+EXPECTED_SUMMARY_SHA256 = "4b670621f1c03d0f30437a1eb86bc69cd30fc32b4a2373c1b557bc5a666abdf1"
 
 
 def request_frame(request: dict[str, Any]) -> dict[str, Any]:
@@ -415,6 +415,13 @@ class EncodingContractTests(unittest.TestCase):
         wrong_source = copy.deepcopy(domain_error)
         wrong_source["error"]["source"] = "encoding"
         self.assert_wire_error("invalid_value", self.encoded(wrong_source))
+        adapter_error = example_frames()[8]
+        wrong_adapter_source = copy.deepcopy(adapter_error)
+        wrong_adapter_source["error"]["source"] = "domain"
+        self.assert_wire_error("invalid_value", self.encoded(wrong_adapter_source))
+        adapter_operation = copy.deepcopy(adapter_error)
+        adapter_operation["error"]["operation_index"] = 0
+        self.assert_wire_error("invalid_value", self.encoded(adapter_operation))
         extra_versions = copy.deepcopy(domain_error)
         extra_versions["error"]["supported_versions"] = [PROTOCOL]
         self.assert_wire_error("unknown_field", self.encoded(extra_versions))
