@@ -163,7 +163,7 @@ type or grant a filesystem path.
 An error response contains `protocol`, `status: "error"`, and a structured
 error with:
 
-- `source`: `encoding` or `domain`;
+- `source`: `encoding`, `domain`, or `adapter`;
 - stable `code`;
 - ADR-0004 retry advice;
 - nullable zero-based operation index;
@@ -177,6 +177,14 @@ missing fields, invalid types/values, and wire resource limits. Domain errors
 retain the accepted foundation, scene, query, and transaction code names. An
 adapter cannot reinterpret a malformed frame as a partial request or reorder
 ADR-0004's typed validation precedence.
+
+The Phase 1 headless adapter adds the third source for failures that occur
+after domain work succeeds but before an external artifact is committed.
+`artifact_exists` is fail-closed and asks the caller to select another
+identity; `artifact_io_failure` may be retried after repairing the configured
+artifact boundary. Renderer and PNG failures retain their library error codes
+and remain domain failures. Cancellation reports the source of the boundary at
+which it was observed.
 
 Encoding-error paths are rooted at the complete wire frame. Once decoding has
 constructed a typed request, domain-error paths are rooted at that request's

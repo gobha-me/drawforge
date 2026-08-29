@@ -2102,7 +2102,8 @@
         "source": {
           "enum": [
             "encoding",
-            "domain"
+            "domain",
+            "adapter"
           ]
         },
         "code": {
@@ -2140,7 +2141,11 @@
             "unsupported_node_kind",
             "unsupported_property",
             "number_out_of_range",
-            "arithmetic_overflow"
+            "arithmetic_overflow",
+            "renderer_failure",
+            "png_encoding_failure",
+            "artifact_exists",
+            "artifact_io_failure"
           ]
         },
         "retry_advice": {

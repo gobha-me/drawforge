@@ -661,12 +661,16 @@ def build_schema() -> dict[str, Any]:
         "unsupported_property",
         "number_out_of_range",
         "arithmetic_overflow",
+        "renderer_failure",
+        "png_encoding_failure",
+        "artifact_exists",
+        "artifact_io_failure",
     ]
     defs.update(
         {
             "error": object_of(
                 {
-                    "source": {"enum": ["encoding", "domain"]},
+                    "source": {"enum": ["encoding", "domain", "adapter"]},
                     "code": {"enum": error_codes},
                     "retry_advice": {"enum": ["same_request", "refresh_then_retry", "change_request", "not_retryable"]},
                     "operation_index": nullable(ref("uint64")),
@@ -854,6 +858,18 @@ def example_frames() -> list[dict[str, Any]]:
                 "operation_index": None,
                 "field_path": ["expected_revision"],
                 "message": "expected revision does not match committed revision",
+            },
+        },
+        {
+            "protocol": protocol,
+            "status": "error",
+            "error": {
+                "source": "adapter",
+                "code": "artifact_exists",
+                "retry_advice": "change_request",
+                "operation_index": None,
+                "field_path": ["artifact_id"],
+                "message": "artifact target already exists",
             },
         },
     ]

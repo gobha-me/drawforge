@@ -447,6 +447,12 @@ def _semantic_validate(value: Mapping[str, Any]) -> None:
             "resource_limit",
             "nesting_limit",
         }
+        adapter_codes = {
+            "allocation_failure",
+            "artifact_exists",
+            "artifact_io_failure",
+            "cancelled",
+        }
         if error["source"] == "encoding":
             if error["code"] not in encoding_codes:
                 raise _fixed_error("invalid_value", ("error", "code"))
@@ -454,7 +460,15 @@ def _semantic_validate(value: Mapping[str, Any]) -> None:
                 raise _fixed_error("invalid_value", ("error", "operation_index"))
             if error["retry_advice"] != "change_request":
                 raise _fixed_error("invalid_value", ("error", "retry_advice"))
-        elif error["code"] in encoding_codes - {"invalid_utf8", "resource_limit"}:
+        elif error["source"] == "adapter":
+            if error["code"] not in adapter_codes:
+                raise _fixed_error("invalid_value", ("error", "code"))
+            if error["operation_index"] is not None:
+                raise _fixed_error("invalid_value", ("error", "operation_index"))
+        elif error["code"] in encoding_codes | {
+            "artifact_exists",
+            "artifact_io_failure",
+        }:
             raise _fixed_error("invalid_value", ("error", "code"))
         has_versions = "supported_versions" in error
         if error["code"] == "unsupported_version":
