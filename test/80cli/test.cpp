@@ -268,7 +268,7 @@ TEST_CASE("injected cancellation returns one response and stops",
                            std::string{summary_frame} + "\n"};
   std::ostringstream output;
   std::ostringstream diagnostics;
-  CancellationState state{.cancel_at = 1U};
+  CancellationState state{.cancel_at = 3U};
 
   REQUIRE(dfc::run_jsonl(input, output, diagnostics, artifacts.path(),
                          drawforge::CancellationToken{&state, cancel_after}) ==

@@ -2071,6 +2071,18 @@ auto process_frame(Session &session, const std::string_view frame,
                    const CancellationToken cancellation, int &exit_category)
     -> bool {
   try {
+    if (cancellation.stop_requested()) {
+      const ProtocolError error{.source = ErrorSource::adapter,
+                                .code = "cancelled",
+                                .retry_advice = RetryAdvice::same_request,
+                                .operation_index = std::nullopt,
+                                .path = {},
+                                .message = "adapter processing was cancelled",
+                                .interrupted = true};
+      exit_category = exit_cancelled;
+      static_cast<void>(emit(output, diagnostics, encode_error_frame(error)));
+      return false;
+    }
     auto document = parse_json(frame);
     auto request = decode_request(document.root(), session.decode_limits());
     auto result = session.process(std::move(request), cancellation);
