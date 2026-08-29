@@ -215,4 +215,5 @@ jobs:
       - name: Validate corpus and evaluator
         run: |
           python3 evaluation/tools/evaluate.py verify-corpus
+          python3 evaluation/tools/evaluate_v2.py verify-corpus
           python3 -m unittest discover -s evaluation/tests -p 'test_*.py' -v
