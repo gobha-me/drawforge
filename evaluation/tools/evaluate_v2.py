@@ -31,6 +31,14 @@ SEMANTIC_FIELDS = [
     "opacity", "opacity_track",
 ]
 PATH_TOKEN = re.compile(r"[MmLlHhVvZz]|[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+FAILURE_PNG = bytes.fromhex(
+    "89504e470d0a1a0a0000000d49484452000000010000000108060000001f15c489"
+    "0000000d4944415408d763f8cfc0f01f000500023f49c2fe590000000049454e44"
+    "ae426082"
+)
+MAX_REVIEW_PNG_BYTES = 16 * 1024 * 1024
+MAX_REVIEW_DIMENSION = 4096
 
 
 def _load_v1() -> Any:
@@ -412,6 +420,7 @@ def semantic_snapshot(
     document_id: str,
     object_ids: list[str],
     render_times_us: list[int],
+    review_destination: Path | None = None,
 ) -> tuple[list[dict[str, Any]], list[str]]:
     query_frames = _query_frames(document_id, object_ids)
     with tempfile.TemporaryDirectory(prefix="drawforge-eval-v2-") as raw:
@@ -437,6 +446,14 @@ def semantic_snapshot(
             }}
             for index, time_us in enumerate(render_times_us)
         ]
+        if review_destination is not None:
+            render_frames.append(
+                {"protocol": PROTOCOL, "request": {
+                    "kind": "render", "document_id": document_id,
+                    "expected_revision": revision, "time_us": 0,
+                    "format": "png", "artifact_id": "review-final",
+                }}
+            )
         render_artifacts = root / "render"
         render_artifacts.mkdir()
         render_code, render_responses, render_stderr = _invoke(binary, frames + render_frames, render_artifacts)
@@ -445,7 +462,59 @@ def semantic_snapshot(
         if any(response.get("status") != "ok" for response in render_responses):
             raise EvaluationError("semantic render replay contains a rejected request")
         hashes = [v1.sha256(render_artifacts / f"review-{index}.rgba8") for index in range(len(render_times_us))]
+        if review_destination is not None:
+            review = render_artifacts / "review-final.png"
+            _validate_review_png(review)
+            review_destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(review, review_destination)
         return normalized, hashes
+
+
+def _validate_review_png(path: Path) -> None:
+    try:
+        size = path.stat().st_size
+        with path.open("rb") as stream:
+            signature = stream.read(len(PNG_SIGNATURE))
+    except OSError as error:
+        raise EvaluationError(f"cannot read review PNG: {error.strerror}") from error
+    if size < len(PNG_SIGNATURE) or size > MAX_REVIEW_PNG_BYTES or signature != PNG_SIGNATURE:
+        raise EvaluationError("review renderer produced an invalid or oversized PNG")
+
+
+def _materialize_direct_review(renderer: Path, candidate: Path, destination: Path) -> None:
+    root, _, _ = v1.parse_svg(candidate, v1.load_corpus()["limits"])
+    width = _number(root.get("width"), "svg.width")
+    height = _number(root.get("height"), "svg.height")
+    if width <= 0 or height <= 0:
+        raise EvaluationError("direct-SVG review requires positive canvas dimensions")
+    thumbnail_size = math.ceil(max(width, height))
+    if thumbnail_size > MAX_REVIEW_DIMENSION:
+        raise EvaluationError("direct-SVG review canvas exceeds 4096 pixels")
+    with tempfile.TemporaryDirectory(prefix="drawforge-direct-review-") as raw:
+        output = Path(raw) / "final.png"
+        try:
+            completed = subprocess.run(
+                [
+                    str(renderer), "--size", str(thumbnail_size), str(candidate), str(output),
+                ],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                timeout=30,
+                check=False,
+            )
+        except (OSError, subprocess.SubprocessError) as error:
+            raise EvaluationError("direct-SVG review renderer could not run") from error
+        if completed.returncode != 0:
+            stderr = completed.stderr.decode("utf-8", errors="replace")[:1024]
+            raise EvaluationError(f"direct-SVG review renderer failed: {stderr}".rstrip())
+        _validate_review_png(output)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(output, destination)
+
+
+def _materialize_failure_review(destination: Path) -> None:
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_bytes(FAILURE_PNG)
 
 
 def validate_corpus(binary: Path | None) -> list[str]:
@@ -541,6 +610,10 @@ def prepare_run(args: argparse.Namespace) -> None:
             "adapter_version": args.adapter_version,
             "adapter_commit": args.adapter_commit,
             "provider_runtime": args.provider_runtime,
+            "direct_svg_renderer_version": v1._require_text(
+                args.direct_svg_renderer_version, "direct_svg_renderer_version"
+            ),
+            "direct_svg_renderer_sha256": v1.sha256(args.direct_svg_renderer.resolve()),
         },
         "frozen": _frozen_hashes(),
         "usage": {"tool_interactions": 0, "input_tokens": None, "output_tokens": None, "cost_usd": None},
@@ -569,7 +642,8 @@ def _validate_metadata(metadata: dict[str, Any], corpus: dict[str, Any]) -> tupl
         "model": ("provider", "id", "version"),
         "runtime": (
             "drawforge_version", "drawforge_sha256", "adapter_version",
-            "adapter_commit", "provider_runtime",
+            "adapter_commit", "provider_runtime", "direct_svg_renderer_version",
+            "direct_svg_renderer_sha256",
         ),
     }.items():
         container = metadata.get(container_name)
@@ -616,7 +690,12 @@ def _expected_source_name(route: str, concurrent: bool) -> str:
     return f"{stem}.svg" if route == "direct-svg" else f"{stem}.jsonl"
 
 
-def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | None = None) -> dict[str, Any]:
+def evaluate_run(
+    run_dir: Path,
+    binary: Path | None,
+    direct_renderer: Path | None,
+    output_override: Path | None = None,
+) -> dict[str, Any]:
     corpus = load_corpus()
     metadata = v1.load_json(run_dir / "run.json")
     task, inherited = _validate_metadata(metadata, corpus)
@@ -624,6 +703,10 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
     task_id = metadata["task_id"]
     if binary is not None and v1.sha256(binary) != metadata["runtime"]["drawforge_sha256"]:
         raise EvaluationError("DrawForge executable does not match the frozen runtime hash")
+    if direct_renderer is None:
+        raise EvaluationError("--direct-svg-renderer is required for review artifacts")
+    if v1.sha256(direct_renderer) != metadata["runtime"]["direct_svg_renderer_sha256"]:
+        raise EvaluationError("direct-SVG renderer does not match the frozen runtime hash")
     prompt = run_dir / "prompt.md"
     if prompt.read_bytes() != _prompt_bytes(task, route):
         raise EvaluationError("run prompt does not match the frozen v2 prompt")
@@ -646,23 +729,25 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
             raise EvaluationError(f"run source does not match frozen {inherited_key}")
     suffix = ".svg" if route == "direct-svg" else ".jsonl"
     attempts = sorted((run_dir / "attempts").glob(f"*{suffix}")) if (run_dir / "attempts").is_dir() else []
-    if not attempts:
-        raise EvaluationError(f"run has no {route} attempts")
     if len(attempts) > corpus["limits"]["max_attempts"]:
         raise EvaluationError("run exceeds the attempt budget")
     required_events = list(inherited.get("required_events", []))
     if "submission_accepted" not in required_events:
         required_events.append("submission_accepted")
     diagnostics: list[str] = []
+    if not attempts:
+        diagnostics.append(f"run has no {route} attempts")
     if not v1._events_contain_in_order(events, required_events):
         diagnostics.append(f"required event order is {required_events!r}")
     if task_id == "recover-invalid-edit" and len(attempts) < 2:
         diagnostics.append("invalid-edit recovery requires at least two attempts")
-    valid_result = True
+    valid_result = bool(attempts)
     render_hashes: list[str] = []
-    if route == "direct-svg":
+    review = run_dir / "review" / "final.png"
+    if route == "direct-svg" and attempts:
         try:
             diagnostics.extend(v1.score_candidate(v1.load_corpus(), inherited, attempts[-1]))
+            _materialize_direct_review(direct_renderer, attempts[-1], review)
         except EvaluationError as error:
             valid_result = False
             diagnostics.append(str(error))
@@ -672,7 +757,7 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
                     diagnostics.append("first invalid-edit attempt unexpectedly satisfied the task")
             except EvaluationError:
                 pass
-    else:
+    elif route == "semantic" and attempts:
         if binary is None:
             raise EvaluationError("--drawforge is required for semantic evaluation")
         limits = corpus["limits"]["max_transcript_bytes"]
@@ -685,7 +770,7 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
         times = [0, 300000, 600000] if task_id == "animate-dot-entrance" else [0]
         try:
             actual_snapshot, render_hashes = semantic_snapshot(
-                binary, source_frames + attempt_frames, task_id, object_ids, times
+                binary, source_frames + attempt_frames, task_id, object_ids, times, review
             )
             expected_snapshot, expected_render_hashes = semantic_snapshot(
                 binary, reference_frames, task_id, object_ids, times
@@ -703,6 +788,9 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
                 diagnostics.append("first invalid-edit attempt unexpectedly replayed successfully")
             except EvaluationError:
                 pass
+    if not review.is_file():
+        _materialize_failure_review(review)
+    _validate_review_png(review)
     hashes: dict[str, Any] = {
         "prompt": v1.sha256(prompt),
         "attempts": [{"file": path.name, "sha256": v1.sha256(path)} for path in attempts],
@@ -712,6 +800,7 @@ def evaluate_run(run_dir: Path, binary: Path | None, output_override: Path | Non
         hashes["input"] = v1.sha256(run_dir / source_name)
     if render_hashes:
         hashes["renders"] = render_hashes
+    hashes["review"] = v1.sha256(review)
     bounded = v1._bounded_diagnostics(diagnostics, corpus["limits"]["max_diagnostic_bytes"])
     result = {
         "schema_version": 2,
@@ -948,12 +1037,15 @@ def build_parser() -> argparse.ArgumentParser:
     prepare.add_argument("--adapter-version", required=True)
     prepare.add_argument("--adapter-commit", required=True)
     prepare.add_argument("--provider-runtime", required=True)
+    prepare.add_argument("--direct-svg-renderer", required=True, type=Path)
+    prepare.add_argument("--direct-svg-renderer-version", required=True)
     prepare.add_argument("--trial", required=True, type=int)
     prepare.add_argument("--seed", type=int)
     prepare.add_argument("--temperature", type=float)
     evaluate = subparsers.add_parser("evaluate-run", help="score a direct or semantic v2 run")
     evaluate.add_argument("--run", required=True, type=Path)
     evaluate.add_argument("--drawforge", type=Path)
+    evaluate.add_argument("--direct-svg-renderer", required=True, type=Path)
     evaluate.add_argument("--output", type=Path)
     aggregate = subparsers.add_parser("aggregate", help="aggregate a complete paired result matrix")
     aggregate.add_argument("--root", required=True, type=Path)
@@ -984,7 +1076,9 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         if args.command == "evaluate-run":
             binary = args.drawforge.resolve() if args.drawforge else None
-            result = evaluate_run(args.run.resolve(), binary, args.output)
+            result = evaluate_run(
+                args.run.resolve(), binary, args.direct_svg_renderer.resolve(), args.output
+            )
             print(json.dumps(result, indent=2, sort_keys=True))
             return 0 if result["task_complete"] else 1
         if args.command == "aggregate":

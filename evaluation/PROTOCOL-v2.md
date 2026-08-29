@@ -61,10 +61,15 @@ deterministic pixels must both survive replay.
 
 ## Visual review
 
-The runtime places PNG previews or contact sheets under each run's `review/`
-directory. `prepare-review` creates a packet containing only common prompts,
-starting SVGs, blinded artifact names, and hashes. The route key is written to a
-separate path and must not be shared with reviewers.
+The runtime places exactly one PNG preview under each run's `review/` directory.
+Semantic previews are encoded by the released DrawForge renderer at time zero.
+Direct-SVG previews are produced only after the strict SVG safety checks by a
+hash-pinned renderer whose version and executable digest are recorded in every
+paired run. A run without a renderable accepted artifact receives the same
+transparent failure preview on either route. `prepare-review` creates a packet
+containing only common prompts, starting SVGs, blinded artifact names, and
+hashes. The route key is written to a separate path and must not be shared with
+reviewers.
 
 Two reviewers independently score visual fidelity, legibility, composition,
 and visible collateral change from one to five. They do not see routes, model
