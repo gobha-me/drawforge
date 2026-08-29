@@ -13,10 +13,10 @@ evaluation, and rendering. A small command-line surface will expose the same
 operations for scripts. A future TermForge application will act as a human
 workbench and visual debugger rather than as the library's reason to exist.
 
-DrawForge now has its first immutable scene, query, transaction, and
-deterministic preview APIs. The headless command dispatcher and scripting
-surface remain roadmap work and must not be inferred from the provisional C++
-contract. See [the design](DESIGN.md) and the
+DrawForge now has its first immutable scene, query, transaction, deterministic
+preview, and headless JSONL APIs. The command surface is provisional and
+versioned for the Phase 1 experiment; it is not yet a compatibility promise.
+See [the design](DESIGN.md) and the
 [GitHub roadmap](https://github.com/gobha-me/drawforge/issues).
 
 ## Experiment
@@ -57,6 +57,9 @@ executable conformance evidence under [spike/encoding/](spike/encoding/).
 The fixed Phase 1 RGBA8 and PNG preview contract, renderer-version metadata,
 cancellation boundaries, and semantic dirty-bounds relationship are documented
 in [ADR-0006](docs/decisions/0006-deterministic-preview-rendering.md).
+The production JSONL command, bounded decoder, artifact-write boundary, and
+process exit behavior are documented in
+[ADR-0007](docs/decisions/0007-headless-jsonl-cli.md).
 
 ## Architectural boundary
 
@@ -137,12 +140,24 @@ cmake --build build-clang --parallel
 ctest --test-dir build-clang --output-on-failure
 ```
 
-The bootstrap executable is intentionally truthful about the current state:
+The executable reports project metadata and exposes the experimental JSONL
+adapter:
 
 ```bash
 ./build/src/bin/drawforge --help
 ./build/src/bin/drawforge --version
+mkdir -p artifacts
+./build/src/bin/drawforge jsonl --artifact-dir artifacts \
+  < schema/experimental/v1/examples.jsonl
 ```
+
+The command reads one request object per line and emits one response per line.
+It keeps one document in memory for the process lifetime. Render requests write
+`<artifact_id>.rgba8` or `<artifact_id>.png` into the already-existing artifact
+directory and never overwrite an existing file. Exit statuses are 0 for
+success, 2 for invocation errors, 3 for encoding errors, 4 for domain errors, 5
+for artifact-adapter errors, and 130 for interruption. Ordinary frame errors do
+not stop later frames.
 
 ## Consume the library
 
@@ -167,9 +182,11 @@ fetched, and installed consumption.
 
 Dependencies use `find_package` first and a pinned CMake `FetchContent`
 fallback. The compiled library privately links the exact PlutoVG 1.3.3 Phase 1
-renderer selected by ADR-0001; no PlutoVG type crosses the public API. Catch2
-is used only for tests. Persistence and script-runtime dependencies remain
-deferred to roadmap decisions backed by evidence.
+renderer selected by ADR-0001; no PlutoVG type crosses the public API. The
+headless executable privately uses exact yyjson 0.12.0 for its bounded adapter;
+library-only consumers do not acquire it. Catch2 is used only for tests.
+Persistence and script-runtime dependencies remain deferred to roadmap
+decisions backed by evidence.
 
 ## Continuous integration
 

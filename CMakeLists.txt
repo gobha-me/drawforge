@@ -58,6 +58,7 @@ option(${PROJECT_NAME}_INSTALL   "Generate install / package-config rules" ${PRO
 set(${PROJECT_NAME}_DEPS
   catch2    # Catch2 v3 — test framework (test/)
   plutovg   # PlutoVG 1.3.3 — private deterministic Phase 1 renderer
+  yyjson    # yyjson 0.12.0 — private strict JSONL CLI adapter
 )
 
 # Component gating: a dependency that exists only to serve a target we are not
@@ -72,6 +73,9 @@ if (NOT ${PROJECT_NAME}_TESTS)
 endif ()
 if (NOT ${PROJECT_NAME}_BUILD_LIB)
   list(REMOVE_ITEM ${PROJECT_NAME}_DEPS plutovg)
+endif ()
+if (NOT ${PROJECT_NAME}_BUILD_LIB OR NOT ${PROJECT_NAME}_BUILD_BIN)
+  list(REMOVE_ITEM ${PROJECT_NAME}_DEPS yyjson)
 endif ()
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/dependencies.cmake)

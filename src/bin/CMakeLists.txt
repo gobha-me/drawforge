@@ -9,8 +9,20 @@ target_include_directories(${PROJECT_NAME}
 )
 
 if (TARGET ${PROJECT_NAME}::lib)
+  add_library(${PROJECT_NAME}_cli_support STATIC
+    cli.cpp
+    sha256.cpp
+  )
+  target_include_directories(${PROJECT_NAME}_cli_support
+    PUBLIC ${CMAKE_CURRENT_LIST_DIR}
+  )
+  target_link_libraries(${PROJECT_NAME}_cli_support
+    PUBLIC ${PROJECT_NAME}::lib
+    PRIVATE yyjson::yyjson
+  )
+
   target_link_libraries(${PROJECT_NAME}
-    PRIVATE ${PROJECT_NAME}::lib
+    PRIVATE ${PROJECT_NAME}_cli_support
   )
   target_compile_definitions(${PROJECT_NAME} PRIVATE DRAWFORGE_HAS_LIB=1)
 endif ()
