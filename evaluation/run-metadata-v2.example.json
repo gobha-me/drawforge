@@ -1,0 +1,39 @@
+{
+  "schema_version": 2,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "task_id": "revise-named-sun",
+  "route": "semantic",
+  "trial": 1,
+  "pair_id": "revise-named-sun-01-1001",
+  "model": {
+    "provider": "example",
+    "id": "immutable-model",
+    "version": "2026-08-29"
+  },
+  "sampling": {
+    "seed": 1001,
+    "temperature": 0.0
+  },
+  "runtime": {
+    "drawforge_version": "0.12.0",
+    "drawforge_sha256": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "adapter_version": "aiforge-eval-v1",
+    "adapter_commit": "0123456789abcdef",
+    "provider_runtime": "venice-chat-completions-v1"
+  },
+  "frozen": {
+    "corpus_v1": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "corpus_v2": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "protocol_schema": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "usage": {
+    "tool_interactions": 2,
+    "input_tokens": 500,
+    "output_tokens": 200,
+    "cost_usd": 0.000325
+  },
+  "events": [
+    "source_inspected",
+    "submission_accepted"
+  ]
+}

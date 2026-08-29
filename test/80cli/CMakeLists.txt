@@ -23,3 +23,29 @@ set_tests_properties(80cli-integration PROPERTIES
   FIXTURES_REQUIRED runners
   TIMEOUT 45
 )
+
+add_test(
+  NAME 80cli-evaluation-v2
+  COMMAND ${CMAKE_COMMAND} -E env
+          DRAWFORGE_BINARY=$<TARGET_FILE:${PROJECT_NAME}>
+          ${Python3_EXECUTABLE} -B -m unittest discover
+          -s ${PROJECT_SOURCE_DIR}/evaluation/tests
+          -p test_*.py
+          -v
+)
+set_tests_properties(80cli-evaluation-v2 PROPERTIES
+  FIXTURES_REQUIRED runners
+  TIMEOUT 60
+)
+
+add_test(
+  NAME 80cli-evaluation-v2-corpus
+  COMMAND ${Python3_EXECUTABLE} -B
+          ${PROJECT_SOURCE_DIR}/evaluation/tools/evaluate_v2.py
+          verify-corpus
+          --drawforge $<TARGET_FILE:${PROJECT_NAME}>
+)
+set_tests_properties(80cli-evaluation-v2-corpus PROPERTIES
+  FIXTURES_REQUIRED runners
+  TIMEOUT 60
+)

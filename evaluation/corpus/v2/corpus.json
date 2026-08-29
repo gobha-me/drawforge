@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "trials_per_task": 5,
+  "routes": ["direct-svg", "semantic"],
+  "limits": {
+    "max_attempts": 3,
+    "max_tool_interactions": 12,
+    "max_transcript_bytes": 1048576,
+    "max_diagnostic_bytes": 4096
+  },
+  "tasks": [
+    {"id": "create-status-badge", "family": "creation", "prompt": "prompts/create-status-badge.md", "v1_task": "create-status-badge"},
+    {"id": "revise-named-sun", "family": "revision", "prompt": "prompts/revise-named-sun.md", "v1_task": "revise-named-sun"},
+    {"id": "recolor-card-theme", "family": "revision", "prompt": "prompts/recolor-card-theme.md", "v1_task": "recolor-card-theme"},
+    {"id": "align-toolbar-icons", "family": "revision", "prompt": "prompts/align-toolbar-icons.md", "v1_task": "align-toolbar-icons"},
+    {"id": "group-and-move-mascot", "family": "revision", "prompt": "prompts/group-and-move-mascot.md", "v1_task": "group-and-move-mascot"},
+    {"id": "animate-dot-entrance", "family": "creation", "prompt": "prompts/animate-dot-entrance.md", "v1_task": "animate-dot-entrance"},
+    {"id": "recover-invalid-edit", "family": "recovery", "prompt": "prompts/recover-invalid-edit.md", "v1_task": "recover-invalid-edit"},
+    {"id": "recover-stale-revision", "family": "recovery", "prompt": "prompts/recover-stale-revision.md", "v1_task": "recover-stale-revision"},
+    {"id": "continue-after-compaction", "family": "recovery", "prompt": "prompts/continue-after-compaction.md", "v1_task": "continue-after-compaction"}
+  ]
+}
