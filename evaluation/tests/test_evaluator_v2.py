@@ -26,6 +26,14 @@ class EvaluatorV2Tests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         configured = os.environ.get("DRAWFORGE_BINARY")
         self.binary = Path(configured).resolve() if configured else None
+        self.renderer = self.root / "review-renderer.py"
+        self.renderer.write_text(
+            "#!/usr/bin/env python3\n"
+            "import pathlib, sys\n"
+            f"pathlib.Path(sys.argv[-1]).write_bytes(bytes.fromhex('{evaluate.FAILURE_PNG.hex()}'))\n",
+            encoding="utf-8",
+        )
+        self.renderer.chmod(0o700)
 
     def tearDown(self) -> None:
         self.temporary.cleanup()
@@ -44,6 +52,8 @@ class EvaluatorV2Tests(unittest.TestCase):
             adapter_version="test-v1",
             adapter_commit="0123456789abcdef",
             provider_runtime="offline-test",
+            direct_svg_renderer=self.renderer,
+            direct_svg_renderer_version="offline-test-renderer-v1",
             trial=1,
             seed=1001,
             temperature=0.0,
@@ -179,8 +189,10 @@ class EvaluatorV2Tests(unittest.TestCase):
         reference = evaluate.v1._safe_corpus_path("references/create-status-badge.svg")
         (run / "attempts" / "001.svg").write_bytes(reference.read_bytes())
         self.accept(run)
-        result = evaluate.evaluate_run(run, None)
+        result = evaluate.evaluate_run(run, None, self.renderer)
         self.assertTrue(result["task_complete"], result["diagnostics"])
+        self.assertTrue((run / "review" / "final.png").is_file())
+        self.assertIn("review", result["hashes"])
 
     @unittest.skipUnless(os.environ.get("DRAWFORGE_BINARY"), "DRAWFORGE_BINARY is not set")
     def test_semantic_reference_run_replays_and_completes(self) -> None:
@@ -191,10 +203,11 @@ class EvaluatorV2Tests(unittest.TestCase):
         )
         evaluate._write_frames(run / "attempts" / "001.jsonl", frames)
         self.accept(run, interactions=2)
-        result = evaluate.evaluate_run(run, self.binary)
+        result = evaluate.evaluate_run(run, self.binary, self.renderer)
         self.assertTrue(result["valid_result"], result["diagnostics"])
         self.assertTrue(result["task_complete"], result["diagnostics"])
         self.assertEqual(1, len(result["hashes"]["renders"]))
+        self.assertTrue((run / "review" / "final.png").is_file())
 
     @unittest.skipUnless(os.environ.get("DRAWFORGE_BINARY"), "DRAWFORGE_BINARY is not set")
     def test_semantic_revision_preserves_source_and_completes(self) -> None:
@@ -220,7 +233,7 @@ class EvaluatorV2Tests(unittest.TestCase):
         }
         evaluate._write_frames(run / "attempts" / "001.jsonl", [frame])
         self.accept(run)
-        result = evaluate.evaluate_run(run, self.binary)
+        result = evaluate.evaluate_run(run, self.binary, self.renderer)
         self.assertTrue(result["task_complete"], result["diagnostics"])
 
     @unittest.skipUnless(os.environ.get("DRAWFORGE_BINARY"), "DRAWFORGE_BINARY is not set")
@@ -242,9 +255,40 @@ class EvaluatorV2Tests(unittest.TestCase):
         }
         evaluate._write_frames(run / "attempts" / "001.jsonl", [frame])
         self.accept(run)
-        result = evaluate.evaluate_run(run, self.binary)
+        result = evaluate.evaluate_run(run, self.binary, self.renderer)
         self.assertFalse(result["task_complete"])
         self.assertGreater(result["unintended_change_count"], 0)
+
+    def test_invalid_direct_run_gets_route_neutral_failure_preview(self) -> None:
+        run = self.prepare("create-status-badge", "direct-svg")
+        (run / "attempts" / "001.svg").write_text("not-svg", encoding="utf-8")
+        self.accept(run)
+        result = evaluate.evaluate_run(run, None, self.renderer)
+        self.assertFalse(result["valid_result"])
+        self.assertEqual(evaluate.FAILURE_PNG, (run / "review" / "final.png").read_bytes())
+
+    def test_oversized_direct_review_fails_before_renderer(self) -> None:
+        run = self.prepare("create-status-badge", "direct-svg")
+        (run / "attempts" / "001.svg").write_text(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="5000" height="64" '
+            'viewBox="0 0 5000 64"><rect id="badge"/><circle id="indicator"/>'
+            '<path id="check"/></svg>',
+            encoding="utf-8",
+        )
+        self.accept(run)
+        result = evaluate.evaluate_run(run, None, self.renderer)
+        self.assertFalse(result["valid_result"])
+        self.assertIn("exceeds 4096 pixels", result["diagnostics"][-1])
+        self.assertEqual(evaluate.FAILURE_PNG, (run / "review" / "final.png").read_bytes())
+
+    def test_zero_submission_run_remains_aggregatable(self) -> None:
+        run = self.prepare("create-status-badge", "direct-svg")
+        result = evaluate.evaluate_run(run, None, self.renderer)
+        self.assertFalse(result["valid_result"])
+        self.assertFalse(result["task_complete"])
+        self.assertEqual(0, result["attempt_count"])
+        self.assertIn("run has no direct-svg attempts", result["diagnostics"])
+        self.assertEqual(evaluate.FAILURE_PNG, (run / "review" / "final.png").read_bytes())
 
 
 if __name__ == "__main__":

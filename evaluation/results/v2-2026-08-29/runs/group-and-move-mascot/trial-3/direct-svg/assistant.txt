@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="144" viewBox="0 0 192 144">
+  <rect id="frame" x="2" y="2" width="188" height="140" rx="12" fill="none" stroke="#94a3b8" stroke-width="4"/>
+  <g id="mascot" transform="translate(24,12)">
+    <circle id="body" cx="72" cy="72" r="36" fill="#f59e0b"/>
+    <circle id="eye-left" cx="60" cy="64" r="4" fill="#111827"/>
+    <circle id="eye-right" cx="84" cy="64" r="4" fill="#111827"/>
+  </g>
+</svg>

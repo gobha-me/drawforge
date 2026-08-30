@@ -1,0 +1,1 @@
+The SVG has been submitted and accepted. The `dot` circle now includes a SMIL `<animate>` element that fades its opacity from 0 to 1 over 600ms starting at time zero, with `fill="freeze"` to hold the final value. The `canvas` rect and all geometry/styles are preserved exactly.

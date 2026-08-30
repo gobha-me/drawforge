@@ -1,0 +1,12 @@
+I'll first inspect the current document state, then submit the alignment changes.
+Let me correct the request format:
+
+Let me check the document structure and try with document_id at the request level:
+
+Let me try matching the original structure more closely:
+
+
+I see the issue - in the original format, document_id, expected_revision, and transaction_id are inside the body, not at the transaction level. Let me fix that:
+
+Let me try a simpler test first to verify the API is working:
+

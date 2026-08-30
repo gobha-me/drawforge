@@ -1,0 +1,11 @@
+{
+  "concurrent": false,
+  "events": [
+    "submission_rejected_stale",
+    "source_refreshed",
+    "submission_accepted"
+  ],
+  "frames": [],
+  "interactions": 2,
+  "next_attempt": 3
+}

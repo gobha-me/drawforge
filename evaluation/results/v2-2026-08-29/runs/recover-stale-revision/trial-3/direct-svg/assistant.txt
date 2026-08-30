@@ -1,0 +1,6 @@
+Submission accepted on attempt 2. The workflow succeeded by:
+
+1. **First attempt** — Rejected with `stale_revision` because the source had been concurrently updated
+2. **Refreshed source** — Included the new `<rect id="concurrent-marker">` element that was added during the concurrent edit
+3. **Reapplied only the requested change** — Changed `status-icon` fill from `#f59e0b` to `#16a34a`
+4. **Second attempt** — Accepted successfully

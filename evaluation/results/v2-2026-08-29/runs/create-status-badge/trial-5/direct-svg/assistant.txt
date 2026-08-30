@@ -1,0 +1,5 @@
+The status badge SVG has been created and accepted. The SVG includes:
+
+- **Background rectangle** (`badge`): 160×64, corner radius 16, fill `#172033`
+- **Indicator circle** (`indicator`): center at (32,32), radius 12, fill `#35c46a`
+- **Check path** (`check`): path data `M26 32l4 4 8-9`, no fill, white stroke `#ffffff`, stroke width 3

@@ -1,0 +1,3 @@
+I've exhausted my tool interaction budget (12 interactions) trying to determine the correct `kind` field value for the DrawForge semantic request format. The protocol requires a `request.kind` field, but all attempted values (`create`, `batch`, `transaction`, `atomic`, `document`, `update`, `svg`, `frame`, `request`, `semantic`, `elements`) were rejected with "value is not accepted by the provisional contract" errors.
+
+To proceed, I would need to know the valid `kind` enum values for the `drawforge.experimental/v1` protocol, or an example of a valid semantic request frame to inspect.

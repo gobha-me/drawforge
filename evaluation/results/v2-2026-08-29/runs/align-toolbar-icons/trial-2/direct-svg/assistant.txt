@@ -1,0 +1,6 @@
+The SVG has been submitted successfully. The three icons are now aligned in a single row with:
+- **icon-a**: x="16" y="20"
+- **icon-b**: x="56" y="20"
+- **icon-c**: x="96" y="20"
+
+All icon geometry (24×24, rx="4") and styling (fill="#374151") have been preserved, along with the `toolbar` element exactly as specified.

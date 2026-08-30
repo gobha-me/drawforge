@@ -41,12 +41,15 @@ python3 evaluation/tools/evaluate_v2.py prepare-run \
   --drawforge build/src/bin/drawforge --drawforge-version 0.12.0 \
   --adapter-version aiforge-eval-v1 --adapter-commit 0123456789abcdef \
   --provider-runtime venice-chat-completions-v1 \
+  --direct-svg-renderer /usr/bin/gdk-pixbuf-thumbnailer \
+  --direct-svg-renderer-version gdk-pixbuf-2.42.10-librsvg-2.58.0 \
   --trial 1 --seed 1001 --temperature 0
 
 # Put bounded submissions in attempts/, update run.json with actual usage and
 # event evidence, and replay the final attempt through the released executable.
 python3 evaluation/tools/evaluate_v2.py evaluate-run \
-  --run /tmp/drawforge-v2-run --drawforge build/src/bin/drawforge
+  --run /tmp/drawforge-v2-run --drawforge build/src/bin/drawforge \
+  --direct-svg-renderer /usr/bin/gdk-pixbuf-thumbnailer
 ```
 
 `aggregate` rejects duplicate paired-route results and reports the expected

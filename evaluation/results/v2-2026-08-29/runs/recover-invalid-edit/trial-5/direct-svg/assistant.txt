@@ -1,0 +1,1 @@
+The second submission was accepted. The SVG was successfully modified to change the `signal` circle fill to green `#22c55e` while preserving the `frame` rectangle.

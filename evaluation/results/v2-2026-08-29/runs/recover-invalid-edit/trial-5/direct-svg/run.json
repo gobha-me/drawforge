@@ -1,0 +1,41 @@
+{
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "events": [
+    "submission_rejected_invalid",
+    "submission_accepted"
+  ],
+  "frozen": {
+    "corpus_v1": "sha256:51fcafa419881aeedccc2194337955b1982ccb1b8d2c97263a4401ffc92b4ba9",
+    "corpus_v2": "sha256:b82746b192a91d1e0b170f71de9c177058739b1e3a5711f9e06343d4d11f7d22",
+    "protocol_schema": "sha256:9a1a28fd3d726308dda486cfffee13f9547e9b0e90771444eab882aaa5164945"
+  },
+  "model": {
+    "id": "minimax-m25",
+    "provider": "venice",
+    "version": "minimax-m25@venice-created-1770854400"
+  },
+  "pair_id": "recover-invalid-edit-05-1005",
+  "route": "direct-svg",
+  "runtime": {
+    "adapter_commit": "7345945897eefa875e9c3c63d266101a42dc1dc4",
+    "adapter_version": "aiforge-eval-v1/v0.49.10",
+    "direct_svg_renderer_sha256": "sha256:9f5c742ee2c698c7e1e9978105305a0d51fd82eedae25a8e4c6eaa8a355a3a44",
+    "direct_svg_renderer_version": "gdk-pixbuf-2.42.10-librsvg-2.58.0",
+    "drawforge_sha256": "sha256:b24f17fa54ae5e69b7df9113f7b3fcac72bd428a64755bf69a69c9b11d7e77d7",
+    "drawforge_version": "0.12.0",
+    "provider_runtime": "venice-chat-completions-v1"
+  },
+  "sampling": {
+    "seed": 1005,
+    "temperature": 0.0
+  },
+  "schema_version": 2,
+  "task_id": "recover-invalid-edit",
+  "trial": 5,
+  "usage": {
+    "cost_usd": 0.0,
+    "input_tokens": 11404,
+    "output_tokens": 1464,
+    "tool_interactions": 2
+  }
+}

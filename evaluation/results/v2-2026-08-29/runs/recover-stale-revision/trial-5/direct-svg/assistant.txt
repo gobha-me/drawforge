@@ -1,0 +1,1 @@
+Submission accepted on attempt 2. The SVG now has `status-icon` with fill `#16a34a` (green) while preserving the original background and retaining the concurrent `concurrent-marker` addition.

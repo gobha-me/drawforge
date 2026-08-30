@@ -1,0 +1,1178 @@
+{
+  "blinded": true,
+  "complete_matrix": true,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "items": [
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/00f2d661329e3fbe-00.png",
+          "sha256": "sha256:a99d5826f12991d5da78c583bb2dd9762e5f750ffea152ae7fa404eb5cead224"
+        }
+      ],
+      "blind_id": "00f2d661329e3fbe",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/098b829267ef4862-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "098b829267ef4862",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/0b2c9adc594e8d19-00.png",
+          "sha256": "sha256:829f9fe9b06b0ef7afca94fa645ab285f93fcc15bc6640f62454c11ed01ca706"
+        }
+      ],
+      "blind_id": "0b2c9adc594e8d19",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/137f87712d7dcc72-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "137f87712d7dcc72",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/13f0812012411e02-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "13f0812012411e02",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/15bffc9dce9d64a1-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "15bffc9dce9d64a1",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/1c9bb4737fd4b036-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "1c9bb4737fd4b036",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2271e7bba1dc0ab9-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2271e7bba1dc0ab9",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2741460aa80761d6-00.png",
+          "sha256": "sha256:8632f52d0bc542806e277506b8217ab490889c9af8c52f0c3b766a69bad9942e"
+        }
+      ],
+      "blind_id": "2741460aa80761d6",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2950ee808fed0e74-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2950ee808fed0e74",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2a2c49b63266ea7c-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2a2c49b63266ea7c",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2a486520c42deedf-00.png",
+          "sha256": "sha256:8632f52d0bc542806e277506b8217ab490889c9af8c52f0c3b766a69bad9942e"
+        }
+      ],
+      "blind_id": "2a486520c42deedf",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2ae6553dfbd3e20c-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2ae6553dfbd3e20c",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2d9b4de6419bedda-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2d9b4de6419bedda",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2db657a4f11c32ba-00.png",
+          "sha256": "sha256:f5fe3fa55978ed14df1ce8955992cc8235dadb295651240860fe9ce5fc62995c"
+        }
+      ],
+      "blind_id": "2db657a4f11c32ba",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/2ecfc5a5f8b0cf65-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "2ecfc5a5f8b0cf65",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/34f92773d945a71f-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "34f92773d945a71f",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/35937563851de751-00.png",
+          "sha256": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+        }
+      ],
+      "blind_id": "35937563851de751",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/369058092cc5546d-00.png",
+          "sha256": "sha256:9e6f8c583eb7a21fea8cccfa3d29e632c6f7ed208f60086a0b26091dd90e22b0"
+        }
+      ],
+      "blind_id": "369058092cc5546d",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/37df293c94a00333-00.png",
+          "sha256": "sha256:9aa8fc798590196c6f0eb3f73ec1deb9cd74879df4615a5cca37abe138f4dc63"
+        }
+      ],
+      "blind_id": "37df293c94a00333",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/3b0537368fdf7db5-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "3b0537368fdf7db5",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/3b566d0a8e5cdb37-00.png",
+          "sha256": "sha256:9aa8fc798590196c6f0eb3f73ec1deb9cd74879df4615a5cca37abe138f4dc63"
+        }
+      ],
+      "blind_id": "3b566d0a8e5cdb37",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/3d573c64fedfe413-00.png",
+          "sha256": "sha256:f5fe3fa55978ed14df1ce8955992cc8235dadb295651240860fe9ce5fc62995c"
+        }
+      ],
+      "blind_id": "3d573c64fedfe413",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/4627b20b99ef21c3-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "4627b20b99ef21c3",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/488ce7e7ec0cc6c8-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "488ce7e7ec0cc6c8",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/53314953dbafa62f-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "53314953dbafa62f",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/56d5db22befcc57a-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "56d5db22befcc57a",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/573c478af2dca4ec-00.png",
+          "sha256": "sha256:9aa8fc798590196c6f0eb3f73ec1deb9cd74879df4615a5cca37abe138f4dc63"
+        }
+      ],
+      "blind_id": "573c478af2dca4ec",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/5d774763d25a38ac-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "5d774763d25a38ac",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/638071be7dc04033-00.png",
+          "sha256": "sha256:2155d0a52304e74bf4c11041a843042351f06e9c90e664a4dc79ce8ff6d64809"
+        }
+      ],
+      "blind_id": "638071be7dc04033",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/65501912f8660653-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "65501912f8660653",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/656b706b8f9363cf-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "656b706b8f9363cf",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/661eb7123fd91765-00.png",
+          "sha256": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+        }
+      ],
+      "blind_id": "661eb7123fd91765",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/664f1f918a6be4dd-00.png",
+          "sha256": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+        }
+      ],
+      "blind_id": "664f1f918a6be4dd",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/666e517e58ca9839-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "666e517e58ca9839",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/6679f3461546fd90-00.png",
+          "sha256": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+        }
+      ],
+      "blind_id": "6679f3461546fd90",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/66b4333e639ec3e9-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "66b4333e639ec3e9",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/693dc49815824932-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "693dc49815824932",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/6da74a82e256cf11-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "6da74a82e256cf11",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/6e443b1612f6ec66-00.png",
+          "sha256": "sha256:829f9fe9b06b0ef7afca94fa645ab285f93fcc15bc6640f62454c11ed01ca706"
+        }
+      ],
+      "blind_id": "6e443b1612f6ec66",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/7a50b0246d3f9f0b-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "7a50b0246d3f9f0b",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/7b0321e85a03da82-00.png",
+          "sha256": "sha256:829f9fe9b06b0ef7afca94fa645ab285f93fcc15bc6640f62454c11ed01ca706"
+        }
+      ],
+      "blind_id": "7b0321e85a03da82",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/7c8953abf6633a6f-00.png",
+          "sha256": "sha256:a99d5826f12991d5da78c583bb2dd9762e5f750ffea152ae7fa404eb5cead224"
+        }
+      ],
+      "blind_id": "7c8953abf6633a6f",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/7ff9139bf575e78b-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "7ff9139bf575e78b",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/8211b5d9006d11aa-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "8211b5d9006d11aa",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/82159e3a2d679d81-00.png",
+          "sha256": "sha256:9e6f8c583eb7a21fea8cccfa3d29e632c6f7ed208f60086a0b26091dd90e22b0"
+        }
+      ],
+      "blind_id": "82159e3a2d679d81",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/854adedc8759a5af-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "854adedc8759a5af",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/8c1635505ed53018-00.png",
+          "sha256": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+        }
+      ],
+      "blind_id": "8c1635505ed53018",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/8d097deedc1fba34-00.png",
+          "sha256": "sha256:f5fe3fa55978ed14df1ce8955992cc8235dadb295651240860fe9ce5fc62995c"
+        }
+      ],
+      "blind_id": "8d097deedc1fba34",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/90960fac2dc8c044-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "90960fac2dc8c044",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/92a54f18387b8f0e-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "92a54f18387b8f0e",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/94780d3f4ba15b6b-00.png",
+          "sha256": "sha256:2155d0a52304e74bf4c11041a843042351f06e9c90e664a4dc79ce8ff6d64809"
+        }
+      ],
+      "blind_id": "94780d3f4ba15b6b",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/99c11349d465fdef-00.png",
+          "sha256": "sha256:f5fe3fa55978ed14df1ce8955992cc8235dadb295651240860fe9ce5fc62995c"
+        }
+      ],
+      "blind_id": "99c11349d465fdef",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/9eef6f6e83debfd9-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "9eef6f6e83debfd9",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a2800085218fb979-00.png",
+          "sha256": "sha256:a99d5826f12991d5da78c583bb2dd9762e5f750ffea152ae7fa404eb5cead224"
+        }
+      ],
+      "blind_id": "a2800085218fb979",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a2bd66fb0a5f7c0a-00.png",
+          "sha256": "sha256:2155d0a52304e74bf4c11041a843042351f06e9c90e664a4dc79ce8ff6d64809"
+        }
+      ],
+      "blind_id": "a2bd66fb0a5f7c0a",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a365360b6987401c-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "a365360b6987401c",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a4186290ed3ac3e5-00.png",
+          "sha256": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+        }
+      ],
+      "blind_id": "a4186290ed3ac3e5",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a53ec3e53d9f2845-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "a53ec3e53d9f2845",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a6e6c311a01fe5c0-00.png",
+          "sha256": "sha256:829f9fe9b06b0ef7afca94fa645ab285f93fcc15bc6640f62454c11ed01ca706"
+        }
+      ],
+      "blind_id": "a6e6c311a01fe5c0",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a734e3dcc9a1f1f0-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "a734e3dcc9a1f1f0",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/a747bb35468746a9-00.png",
+          "sha256": "sha256:829f9fe9b06b0ef7afca94fa645ab285f93fcc15bc6640f62454c11ed01ca706"
+        }
+      ],
+      "blind_id": "a747bb35468746a9",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/affc53943bbc3111-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "affc53943bbc3111",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/b47169edcf4aa0c1-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "b47169edcf4aa0c1",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/b746452cf5a290fd-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "b746452cf5a290fd",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/b75575ab15715149-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "b75575ab15715149",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/b93b9dcec879e29a-00.png",
+          "sha256": "sha256:2155d0a52304e74bf4c11041a843042351f06e9c90e664a4dc79ce8ff6d64809"
+        }
+      ],
+      "blind_id": "b93b9dcec879e29a",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/bf1af2c393c02732-00.png",
+          "sha256": "sha256:9aa8fc798590196c6f0eb3f73ec1deb9cd74879df4615a5cca37abe138f4dc63"
+        }
+      ],
+      "blind_id": "bf1af2c393c02732",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/c3dac5b5140495c2-00.png",
+          "sha256": "sha256:9aa8fc798590196c6f0eb3f73ec1deb9cd74879df4615a5cca37abe138f4dc63"
+        }
+      ],
+      "blind_id": "c3dac5b5140495c2",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/c59df04c803c2bf0-00.png",
+          "sha256": "sha256:a99d5826f12991d5da78c583bb2dd9762e5f750ffea152ae7fa404eb5cead224"
+        }
+      ],
+      "blind_id": "c59df04c803c2bf0",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/cc4b9a6e475a3f53-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "cc4b9a6e475a3f53",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/cd563cd719eae92d-00.png",
+          "sha256": "sha256:9e6f8c583eb7a21fea8cccfa3d29e632c6f7ed208f60086a0b26091dd90e22b0"
+        }
+      ],
+      "blind_id": "cd563cd719eae92d",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/ce4c4c2387c3967a-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "ce4c4c2387c3967a",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/d1b19b2c6a39072c-00.png",
+          "sha256": "sha256:f5fe3fa55978ed14df1ce8955992cc8235dadb295651240860fe9ce5fc62995c"
+        }
+      ],
+      "blind_id": "d1b19b2c6a39072c",
+      "prompt": "prompts/continue-after-compaction.md",
+      "source": "sources/continue-after-compaction.svg",
+      "task_id": "continue-after-compaction",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/d4989f901de6e474-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "d4989f901de6e474",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/d84c8f65cb2aeca6-00.png",
+          "sha256": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+        }
+      ],
+      "blind_id": "d84c8f65cb2aeca6",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/d9c5dd0f307c1ef6-00.png",
+          "sha256": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+        }
+      ],
+      "blind_id": "d9c5dd0f307c1ef6",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/d9e95cfe83ee918f-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "d9e95cfe83ee918f",
+      "prompt": "prompts/recover-invalid-edit.md",
+      "source": "sources/recover-invalid-edit.svg",
+      "task_id": "recover-invalid-edit",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/db75a04bdb7440ac-00.png",
+          "sha256": "sha256:8632f52d0bc542806e277506b8217ab490889c9af8c52f0c3b766a69bad9942e"
+        }
+      ],
+      "blind_id": "db75a04bdb7440ac",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/dfac718536f1c0c9-00.png",
+          "sha256": "sha256:9e6f8c583eb7a21fea8cccfa3d29e632c6f7ed208f60086a0b26091dd90e22b0"
+        }
+      ],
+      "blind_id": "dfac718536f1c0c9",
+      "prompt": "prompts/create-status-badge.md",
+      "source": null,
+      "task_id": "create-status-badge",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/dfbf8645458f3d6a-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "dfbf8645458f3d6a",
+      "prompt": "prompts/group-and-move-mascot.md",
+      "source": "sources/group-and-move-mascot.svg",
+      "task_id": "group-and-move-mascot",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/e46384c776edb498-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "e46384c776edb498",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 4
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/e4a19e75612d40c3-00.png",
+          "sha256": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+        }
+      ],
+      "blind_id": "e4a19e75612d40c3",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/e77e532a6569d0f5-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "e77e532a6569d0f5",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/e818fe495296653d-00.png",
+          "sha256": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+        }
+      ],
+      "blind_id": "e818fe495296653d",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 5
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/ed7507d95d42f733-00.png",
+          "sha256": "sha256:8632f52d0bc542806e277506b8217ab490889c9af8c52f0c3b766a69bad9942e"
+        }
+      ],
+      "blind_id": "ed7507d95d42f733",
+      "prompt": "prompts/align-toolbar-icons.md",
+      "source": "sources/align-toolbar-icons.svg",
+      "task_id": "align-toolbar-icons",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/ef89fc831c18f286-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "ef89fc831c18f286",
+      "prompt": "prompts/recolor-card-theme.md",
+      "source": "sources/recolor-card-theme.svg",
+      "task_id": "recolor-card-theme",
+      "trial": 1
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/f065b19379a9f700-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "f065b19379a9f700",
+      "prompt": "prompts/revise-named-sun.md",
+      "source": "sources/revise-named-sun.svg",
+      "task_id": "revise-named-sun",
+      "trial": 3
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/f27acfe838657125-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "f27acfe838657125",
+      "prompt": "prompts/animate-dot-entrance.md",
+      "source": "sources/animate-dot-entrance.svg",
+      "task_id": "animate-dot-entrance",
+      "trial": 2
+    },
+    {
+      "artifacts": [
+        {
+          "file": "artifacts/f4e663193af4a451-00.png",
+          "sha256": "sha256:4f13b02d89398404ecc0d013531d36da823f9bf51969d9784535ed4c77f0d11a"
+        }
+      ],
+      "blind_id": "f4e663193af4a451",
+      "prompt": "prompts/recover-stale-revision.md",
+      "source": "sources/recover-stale-revision.svg",
+      "task_id": "recover-stale-revision",
+      "trial": 2
+    }
+  ],
+  "schema_version": 2
+}

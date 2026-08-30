@@ -1,0 +1,5 @@
+The status badge SVG has been successfully created and submitted. The badge includes:
+
+- A 160×64 viewBox with the background rectangle (`badge`) filled with `#172033` and corner radius 16
+- A green indicator circle (`indicator`) centered at (32,32) with radius 12
+- A white checkmark path (`check`) with the specified path data and stroke styling

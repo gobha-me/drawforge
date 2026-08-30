@@ -1,0 +1,121 @@
+{
+  "complete_matrix": true,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "decision": "pending-human-review",
+  "expected_runs": 90,
+  "families": {
+    "creation": {
+      "direct-svg": {
+        "completion_rate": 0.4,
+        "cost_reported_runs": 10,
+        "cost_usd": 0.0,
+        "input_tokens": 47782,
+        "median_tool_interactions": 1.0,
+        "output_tokens": 8696,
+        "recovery_rate": 0.0,
+        "runs": 10,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.9
+      },
+      "semantic": {
+        "completion_rate": 0.0,
+        "cost_reported_runs": 10,
+        "cost_usd": 0.0,
+        "input_tokens": 3565805,
+        "median_tool_interactions": 8.0,
+        "output_tokens": 136423,
+        "recovery_rate": 0.0,
+        "runs": 10,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.0
+      }
+    },
+    "recovery": {
+      "direct-svg": {
+        "completion_rate": 0.6,
+        "cost_reported_runs": 15,
+        "cost_usd": 0.0,
+        "input_tokens": 184455,
+        "median_tool_interactions": 2,
+        "output_tokens": 33194,
+        "recovery_rate": 0.6,
+        "runs": 15,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.8666666666666667
+      },
+      "semantic": {
+        "completion_rate": 0.0,
+        "cost_reported_runs": 15,
+        "cost_usd": 0.0,
+        "input_tokens": 456411,
+        "median_tool_interactions": 4,
+        "output_tokens": 116925,
+        "recovery_rate": 0.0,
+        "runs": 15,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.0
+      }
+    },
+    "revision": {
+      "direct-svg": {
+        "completion_rate": 0.7,
+        "cost_reported_runs": 20,
+        "cost_usd": 0.0,
+        "input_tokens": 128018,
+        "median_tool_interactions": 1.0,
+        "output_tokens": 24976,
+        "recovery_rate": 0.0,
+        "runs": 20,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.95
+      },
+      "semantic": {
+        "completion_rate": 0.0,
+        "cost_reported_runs": 20,
+        "cost_usd": 0.0,
+        "input_tokens": 1097164,
+        "median_tool_interactions": 4.0,
+        "output_tokens": 187922,
+        "recovery_rate": 0.0,
+        "runs": 20,
+        "unintended_change_rate": 0.0,
+        "valid_rate": 0.0
+      }
+    }
+  },
+  "observed_runs": 90,
+  "paired_runs": 45,
+  "routes": {
+    "direct-svg": {
+      "completion_rate": 0.6,
+      "cost_reported_runs": 45,
+      "cost_usd": 0.0,
+      "input_tokens": 360255,
+      "median_tool_interactions": 1,
+      "output_tokens": 66866,
+      "recovery_rate": 0.2,
+      "runs": 45,
+      "unintended_change_rate": 0.0,
+      "valid_rate": 0.9111111111111111
+    },
+    "semantic": {
+      "completion_rate": 0.0,
+      "cost_reported_runs": 45,
+      "cost_usd": 0.0,
+      "input_tokens": 5119380,
+      "median_tool_interactions": 5,
+      "output_tokens": 441270,
+      "recovery_rate": 0.0,
+      "runs": 45,
+      "unintended_change_rate": 0.0,
+      "valid_rate": 0.0
+    }
+  },
+  "schema_version": 2,
+  "spend": {
+    "hard_ceiling_usd": 3.0,
+    "reported_runs": 90,
+    "total_usd": 0.0,
+    "verified_within_ceiling": true
+  }
+}

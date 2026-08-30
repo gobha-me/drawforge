@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="64" viewBox="0 0 144 64">
+  <rect id="toolbar" x="0" y="0" width="144" height="64" rx="10" fill="#e5e7eb"/>
+  <rect id="icon-a" x="16" y="20" width="24" height="24" rx="4" fill="#374151"/>
+  <rect id="icon-b" x="56" y="20" width="24" height="24" rx="4" fill="#374151"/>
+  <rect id="icon-c" x="96" y="20" width="24" height="24" rx="4" fill="#374151"/>
+</svg>

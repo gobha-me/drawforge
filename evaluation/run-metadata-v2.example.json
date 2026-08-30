@@ -19,7 +19,9 @@
     "drawforge_sha256": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
     "adapter_version": "aiforge-eval-v1",
     "adapter_commit": "0123456789abcdef",
-    "provider_runtime": "venice-chat-completions-v1"
+    "provider_runtime": "venice-chat-completions-v1",
+    "direct_svg_renderer_version": "gdk-pixbuf-2.42.10-librsvg-2.58.0",
+    "direct_svg_renderer_sha256": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
   },
   "frozen": {
     "corpus_v1": "sha256:0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",

@@ -1,0 +1,1 @@
+The submission was accepted. The SVG now includes an `<animate>` element inside the `dot` circle that creates a non-looping opacity entrance animation from 0 to 1 over 600 milliseconds, starting immediately and holding the final value using `fill="freeze"`.

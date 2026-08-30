@@ -1,0 +1,5 @@
+session: session-3962620252441404 (ephemeral)
+usage: input=12514 output=2001 cached=10752 reasoning=0
+cost: USD=0 venice.diem=0.00269925 (provider-reported)
+estimate: USD=unavailable[0/4;pricing unavailable=4] venice.diem=unavailable[0/4;pricing unavailable=4] (catalog-derived)
+spend: USD=0 cap=3 remaining=3 open (provider-reported or catalog-derived)

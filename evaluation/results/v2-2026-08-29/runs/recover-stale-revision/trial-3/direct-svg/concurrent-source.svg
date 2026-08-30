@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="96" viewBox="0 0 160 96">
+  <rect id="background" x="0" y="0" width="160" height="96" fill="#f8fafc"/>
+  <circle id="status-icon" cx="48" cy="48" r="18" fill="#f59e0b"/>
+  <rect id="concurrent-marker" x="132" y="8" width="16" height="16" rx="3" fill="#7c3aed"/>
+</svg>

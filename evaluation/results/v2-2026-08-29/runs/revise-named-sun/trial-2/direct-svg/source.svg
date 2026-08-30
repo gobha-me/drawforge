@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="144" viewBox="0 0 256 144">
+  <rect id="sky" x="0" y="0" width="256" height="144" fill="#8ed6ff"/>
+  <circle id="sun" cx="128" cy="48" r="20" fill="#ffe066"/>
+  <path id="hills" d="M0 112L64 64l48 36 48-52 96 72v24H0z" fill="#4f8a5b"/>
+</svg>
