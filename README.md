@@ -2,16 +2,28 @@
 
 [![CI](https://github.com/gobha-me/drawforge/actions/workflows/ci.yml/badge.svg)](https://github.com/gobha-me/drawforge/actions/workflows/ci.yml)
 
-DrawForge is an experimental C++23 semantic graphics library for LLMs,
-scripts, and other tool-driven clients. The experiment asks whether a bounded,
-inspectable document model with typed operations can help an LLM create and
-revise structured artwork more reliably than writing SVG or graphics source
-directly.
+## Status: experiment concluded
 
-The intended library owns document semantics, transactions, deterministic
-evaluation, and rendering. A small command-line surface will expose the same
-operations for scripts. A future TermForge application will act as a human
-workbench and visual debugger rather than as the library's reason to exist.
+DrawForge's Phase 1 evaluation concluded with a **Stop** decision. Across the
+frozen 45-trial paired comparison, direct SVG produced 41 valid results and
+completed 27 tasks; the DrawForge semantic route produced no valid or complete
+result. The evidence does not support continued product expansion. See the
+[frozen gate decision](evaluation/results/v2-2026-08-29/DECISION.md) for the
+tested versions, complete result matrix, and scope disposition.
+
+The released C++23 library, command-line adapter, corpus, harness, and results
+remain available as an auditable experiment. Reopening development requires a
+new explicitly approved redesign issue and a newly pre-registered evaluation;
+it is not an automatic continuation of the original roadmap.
+
+DrawForge tested whether a bounded, inspectable document model with typed
+operations could help an LLM create and revise structured artwork more
+reliably than writing SVG or graphics source directly.
+
+The released library owns document semantics, transactions, deterministic
+evaluation, and rendering. Its command-line surface exposes the same operations
+for scripts. The deferred TermForge workbench, scripting expansion, and AIForge
+product adapter were not pursued after the gate failed.
 
 DrawForge now has its first immutable scene, query, transaction, deterministic
 preview, and headless JSONL APIs. The command surface is provisional and
@@ -21,8 +33,8 @@ See [the design](DESIGN.md) and the
 
 ## Experiment
 
-The primary comparison is direct SVG authoring. DrawForge should earn its
-complexity through capabilities such as:
+The primary comparison was direct SVG authoring. DrawForge was expected to earn
+its complexity through capabilities such as:
 
 - stable object identities across revisions;
 - atomic, retry-safe transactions;
@@ -31,8 +43,9 @@ complexity through capabilities such as:
 - deterministic previews and structured failures; and
 - reviewable diffs that distinguish intended from incidental changes.
 
-The project should be reconsidered if an evaluation corpus shows no meaningful
-reliability, efficiency, safety, or revision-quality advantage over direct SVG.
+The evaluation found no meaningful reliability, efficiency, safety, or
+revision-quality advantage over direct SVG, so the project stopped at the
+released semantic-core boundary.
 
 The versioned corpus, direct-SVG baseline, repeatability controls, and gate
 decision are documented in [evaluation/](evaluation/). The baseline is
@@ -61,7 +74,7 @@ The production JSONL command, bounded decoder, artifact-write boundary, and
 process exit behavior are documented in
 [ADR-0007](docs/decisions/0007-headless-jsonl-cli.md).
 
-## Architectural boundary
+## Evaluated architectural boundary
 
 ```text
                          +----------------------+
@@ -76,10 +89,12 @@ process exit behavior are documented in
         JSON transactions     inspect and preview  AIForge / MCP / other
 ```
 
+The TermForge and external-adapter consumers shown above were architectural
+boundaries considered by the experiment, not implemented continuation work.
+
 The core library does not depend on AIForge, TermForge, a live terminal, or a
-provider SDK. An AIForge integration belongs at AIForge's adapter boundary and
-maps its tool, policy, event, and artifact contracts onto the stable DrawForge
-API.
+provider SDK. The proposed AIForge integration was assigned to AIForge's
+adapter boundary; it was not implemented as continuation work.
 
 ## Current public API
 
@@ -185,8 +200,8 @@ fallback. The compiled library privately links the exact PlutoVG 1.3.3 Phase 1
 renderer selected by ADR-0001; no PlutoVG type crosses the public API. The
 headless executable privately uses exact yyjson 0.12.0 for its bounded adapter;
 library-only consumers do not acquire it. Catch2 is used only for tests.
-Persistence and script-runtime dependencies remain deferred to roadmap
-decisions backed by evidence.
+Persistence and script-runtime dependencies were not selected and remain
+outside the retained experimental boundary.
 
 ## Continuous integration
 
