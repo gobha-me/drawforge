@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "recorded_date": "2026-08-30",
+  "adjudicator": "repository owner",
+  "status": "complete",
+  "verdict": "looks good",
+  "packet_manifest_sha256": "sha256:98ed665a729cd3dc33d887bf25ece9e2157583d21f300798684e30be8d77aca8",
+  "numeric_scores_available": false,
+  "note": "The repository owner reported that the blinded results were adjudicated and accepted for publication. Individual reviewer score files were not supplied to the repository, so the decision report makes no numerical human-review claim."
+}

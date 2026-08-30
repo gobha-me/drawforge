@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "currency": "USD",
+  "total_reserved_usd": 0.619,
+  "reservations": [
+    {
+      "reason": "Provider calls completed before local continuation failures could persist usage and cost evidence",
+      "model": "minimax-m25",
+      "call_count": 11,
+      "maximum_input_tokens_per_call": 193904,
+      "maximum_output_tokens_per_call": 4096,
+      "input_rate_usd_per_million": 0.27,
+      "output_rate_usd_per_million": 0.95,
+      "maximum_cost_per_call_usd": 0.05624528,
+      "maximum_exact_total_usd": 0.61869808,
+      "reserved_ceiling_usd": 0.619,
+      "evidence": [
+        "aiforge-eval-v1/v0.49.3 completed a first inference that proposed a tool call, then stalled before cost persistence",
+        "aiforge-eval-v1/v0.49.5 completed a first inference and accepted a submission, then the provider rejected the malformed follow-up before cost persistence",
+        "aiforge-eval-v1/v0.49.6 completed a first inference and accepted a submission, then the provider rejected the assistant tool-call follow-up with null content before cost persistence",
+        "aiforge-eval-v1/v0.49.7 completed an inference whose streamed response failed strict adapter protocol validation before cost persistence",
+        "AIForge issue 123 diagnostic build completed a first inference and accepted a submission, then its continuation request was rejected before cost persistence",
+        "AIForge issue 124 reasoning-details diagnostic build completed a first inference and accepted a submission, then its continuation request was rejected before cost persistence",
+        "AIForge issue 124 tool-signature diagnostic build received a provider cost amount that exceeded the local fixed-decimal precision on its first inference before cost persistence",
+        "aiforge-eval-v1/v0.49.8 semantic canary completed a first inference and one tool interaction, then its continuation request was rejected before cost persistence",
+        "AIForge issue 124 request-diagnostic build sent a semantic canary inference that remained silent for twenty minutes and was cancelled before cost persistence",
+        "aiforge-eval-v1/v0.49.9 direct canary completed a first inference and accepted a submission, then local continuation rejected the process-result content block before cost persistence",
+        "aiforge-eval-v1/v0.49.10 recover-invalid-edit trial 5 semantic request reached the twenty-minute total deadline before provider usage and cost could be persisted"
+      ]
+    }
+  ]
+}

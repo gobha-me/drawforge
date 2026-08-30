@@ -1,0 +1,6 @@
+The SVG has been submitted successfully with the opacity entrance animation added to `dot`. The animation uses SMIL's `<animate>` element with:
+- `id="dot-entrance"` for the named track
+- `from="0" to="1"` for the opacity transition
+- `dur="0.6s"` (600 milliseconds)
+- `begin="0s"` to start immediately
+- `fill="freeze"` to hold the final opacity value

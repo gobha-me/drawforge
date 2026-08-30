@@ -1,0 +1,1 @@
+Submission accepted on attempt 1. The SVG has been modified with `focal-ring` now having stroke `#f97316` and stroke-width `6`, while preserving `background`, `cluster-left`, and `cluster-right` exactly as specified.

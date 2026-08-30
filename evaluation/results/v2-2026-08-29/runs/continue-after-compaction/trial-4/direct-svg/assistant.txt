@@ -1,0 +1,1 @@
+The SVG has been submitted successfully. The focal-ring element now has stroke="#f97316" (orange) and stroke-width="6", while all other elements (background, cluster-left, cluster-right) remain exactly as they were in the source.

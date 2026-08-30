@@ -1,0 +1,58 @@
+{
+  "attempt_count": 1,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "diagnostics": [
+    "#mascot attribute transform must be 'translate(24 12)'"
+  ],
+  "family": "revision",
+  "frozen": {
+    "corpus_v1": "sha256:51fcafa419881aeedccc2194337955b1982ccb1b8d2c97263a4401ffc92b4ba9",
+    "corpus_v2": "sha256:b82746b192a91d1e0b170f71de9c177058739b1e3a5711f9e06343d4d11f7d22",
+    "protocol_schema": "sha256:9a1a28fd3d726308dda486cfffee13f9547e9b0e90771444eab882aaa5164945"
+  },
+  "hashes": {
+    "attempts": [
+      {
+        "file": "001.svg",
+        "sha256": "sha256:4c3390ec239ea440d01ce3f431a9283a86a1425f4043830e9df1b790633c6b7c"
+      }
+    ],
+    "input": "sha256:9a8d5fe81dfa6974edb89f199da209c354ef02ab722042960fd84a2ea44d07f6",
+    "prompt": "sha256:99a70abbcc614d1d83c419fbb1d66afb6831ec8c55df509af90593aff8456be8",
+    "review": "sha256:882ba360792ffaf1d514bc5b94a5d8896bc4b0a686ca4f7b493ae9cbc567c917"
+  },
+  "model": {
+    "id": "minimax-m25",
+    "provider": "venice",
+    "version": "minimax-m25@venice-created-1770854400"
+  },
+  "pair_id": "group-and-move-mascot-05-1005",
+  "recovered": false,
+  "rejected_attempt_count": 0,
+  "route": "direct-svg",
+  "runtime": {
+    "adapter_commit": "7345945897eefa875e9c3c63d266101a42dc1dc4",
+    "adapter_version": "aiforge-eval-v1/v0.49.10",
+    "direct_svg_renderer_sha256": "sha256:9f5c742ee2c698c7e1e9978105305a0d51fd82eedae25a8e4c6eaa8a355a3a44",
+    "direct_svg_renderer_version": "gdk-pixbuf-2.42.10-librsvg-2.58.0",
+    "drawforge_sha256": "sha256:b24f17fa54ae5e69b7df9113f7b3fcac72bd428a64755bf69a69c9b11d7e77d7",
+    "drawforge_version": "0.12.0",
+    "provider_runtime": "venice-chat-completions-v1"
+  },
+  "sampling": {
+    "seed": 1005,
+    "temperature": 0.0
+  },
+  "schema_version": 2,
+  "task_complete": false,
+  "task_id": "group-and-move-mascot",
+  "trial": 5,
+  "unintended_change_count": 0,
+  "usage": {
+    "cost_usd": 0.0,
+    "input_tokens": 4963,
+    "output_tokens": 863,
+    "tool_interactions": 1
+  },
+  "valid_result": true
+}

@@ -1,0 +1,56 @@
+{
+  "attempt_count": 1,
+  "corpus_id": "drawforge-semantic-svg-v2",
+  "diagnostics": [],
+  "family": "revision",
+  "frozen": {
+    "corpus_v1": "sha256:51fcafa419881aeedccc2194337955b1982ccb1b8d2c97263a4401ffc92b4ba9",
+    "corpus_v2": "sha256:b82746b192a91d1e0b170f71de9c177058739b1e3a5711f9e06343d4d11f7d22",
+    "protocol_schema": "sha256:9a1a28fd3d726308dda486cfffee13f9547e9b0e90771444eab882aaa5164945"
+  },
+  "hashes": {
+    "attempts": [
+      {
+        "file": "001.svg",
+        "sha256": "sha256:8bfa2c10b1f90d5abadfbcde810ab1d0845ab27507831cbe812644ca4e71d2b6"
+      }
+    ],
+    "input": "sha256:74392130a1563765650c4a3057a658e153ce8e943303f7605f05a56bc8bbd261",
+    "prompt": "sha256:e08bc5139efa182b95c9faafad150a1171282299ef3e4426e400db1c6b3490c0",
+    "review": "sha256:4698d0e9875d2a7881bbd071285d7e3c8a2aae068197c1733112f22078a5f46b"
+  },
+  "model": {
+    "id": "minimax-m25",
+    "provider": "venice",
+    "version": "minimax-m25@venice-created-1770854400"
+  },
+  "pair_id": "revise-named-sun-02-1002",
+  "recovered": false,
+  "rejected_attempt_count": 0,
+  "route": "direct-svg",
+  "runtime": {
+    "adapter_commit": "7345945897eefa875e9c3c63d266101a42dc1dc4",
+    "adapter_version": "aiforge-eval-v1/v0.49.10",
+    "direct_svg_renderer_sha256": "sha256:9f5c742ee2c698c7e1e9978105305a0d51fd82eedae25a8e4c6eaa8a355a3a44",
+    "direct_svg_renderer_version": "gdk-pixbuf-2.42.10-librsvg-2.58.0",
+    "drawforge_sha256": "sha256:b24f17fa54ae5e69b7df9113f7b3fcac72bd428a64755bf69a69c9b11d7e77d7",
+    "drawforge_version": "0.12.0",
+    "provider_runtime": "venice-chat-completions-v1"
+  },
+  "sampling": {
+    "seed": 1002,
+    "temperature": 0.0
+  },
+  "schema_version": 2,
+  "task_complete": true,
+  "task_id": "revise-named-sun",
+  "trial": 2,
+  "unintended_change_count": 0,
+  "usage": {
+    "cost_usd": 0.0,
+    "input_tokens": 4827,
+    "output_tokens": 749,
+    "tool_interactions": 1
+  },
+  "valid_result": true
+}

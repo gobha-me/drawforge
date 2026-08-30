@@ -1,0 +1,2 @@
+Looking at the starting document, I need to add an opacity animation track to the `dot` ellipse. The dot currently has opacity 0.0 and I need to create a track named `dot-entrance` that animates it from 0 to 1 over 600ms, starting at time 0 and holding the final value.
+The operation needs an `index` field. Let me correct the request structure:

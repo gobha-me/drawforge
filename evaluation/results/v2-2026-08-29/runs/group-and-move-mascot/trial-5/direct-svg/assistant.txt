@@ -1,0 +1,6 @@
+The SVG has been submitted successfully. The result:
+
+- **Preserved `frame`** exactly as the source
+- **Created group `mascot`** containing `body`, `eye-left`, `eye-right` in that order
+- **Applied translation** `(24,12)` to the group via `transform="translate(24,12)"` — child properties remain unchanged
+- All circle attributes (`cx`, `cy`, `r`, `fill`) are preserved as-is

@@ -1,0 +1,1 @@
+Submission accepted on attempt 2. The `status-icon` fill was changed to green `#16a34a` while preserving the concurrent addition (`concurrent-marker`).

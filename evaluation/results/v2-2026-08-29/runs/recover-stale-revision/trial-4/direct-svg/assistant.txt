@@ -1,0 +1,1 @@
+Submission accepted on attempt 2. The workflow handled the stale revision by refreshing the source, preserving the concurrent addition (`concurrent-marker` rect), and reapplying only the requested color change to `status-icon` (from `#f59e0b` to `#16a34a`).
